@@ -27,7 +27,7 @@ export function Partners() {
       <div className="container-page py-16 sm:py-24 lg:py-32">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-12 lg:gap-16 items-start">
           <div className="lg:col-span-5">
-            <h2 className="font-heading text-[28px] sm:text-[36px] md:text-[44px] lg:text-[52px] leading-[1.1] sm:leading-[1.05] tracking-[-0.025em] text-brand">
+            <h2 className="font-heading text-[26px] sm:text-[36px] md:text-[44px] lg:text-[52px] leading-[1.1] sm:leading-[1.05] tracking-[-0.025em] text-brand">
               Партнёры мировых брендов,
               <br /> друзья частных клиентов
             </h2>
@@ -54,7 +54,7 @@ export function Partners() {
               {partners.map((p) => (
                 <div
                   key={p.slug}
-                  className="group relative aspect-[4/3] flex items-center justify-center bg-white p-6 sm:p-8"
+                  className="group relative aspect-[4/3] flex items-center justify-center bg-white p-4 sm:p-8"
                 >
                   <div className="relative w-[70%] h-[60%]">
                     <Image

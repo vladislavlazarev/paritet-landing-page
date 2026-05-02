@@ -7,7 +7,7 @@ export function Services() {
     <section id="services" className="relative bg-white text-ink">
       <div className="container-page py-16 sm:py-24 lg:py-32">
         <div className="max-w-2xl mb-10 sm:mb-14">
-          <h2 className="font-heading text-[32px] sm:text-[44px] md:text-[56px] leading-[1.08] sm:leading-[1.04] tracking-[-0.025em] text-ink">
+          <h2 className="font-heading text-[28px] sm:text-[40px] md:text-[56px] leading-[1.08] sm:leading-[1.04] tracking-[-0.025em] text-ink">
             Услуги
           </h2>
           <p className="mt-5 sm:mt-6 text-[15px] sm:text-[16px] leading-relaxed text-body">
@@ -31,12 +31,12 @@ export function Services() {
                 className="absolute inset-y-0 left-0 w-[4px]"
                 style={{ background: g.accent }}
               />
-              <div className="p-7 sm:p-9 lg:p-10">
+              <div className="p-5 sm:p-8 lg:p-10">
                 <Link
                   href={`/services/${g.slug}`}
                   className="group/title inline-flex items-center gap-2"
                 >
-                  <h3 className="font-heading text-[22px] sm:text-[26px] lg:text-[30px] leading-tight tracking-[-0.01em] text-brand transition-colors group-hover/title:text-[color:var(--accent)]">
+                  <h3 className="font-heading text-[20px] sm:text-[26px] lg:text-[30px] leading-tight tracking-[-0.01em] text-brand transition-colors group-hover/title:text-[color:var(--accent)]">
                     {g.title}
                   </h3>
                   <span

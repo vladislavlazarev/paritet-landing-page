@@ -41,7 +41,7 @@ export function Testimonials({
               {eyebrow}
             </p>
           )}
-          <h2 className="mt-4 font-heading text-[32px] sm:text-[44px] md:text-[52px] leading-[1.08] sm:leading-[1.04] tracking-[-0.025em] text-ink">
+          <h2 className="mt-4 font-heading text-[28px] sm:text-[40px] md:text-[52px] leading-[1.08] sm:leading-[1.04] tracking-[-0.025em] text-ink">
             {heading}
           </h2>
         </div>
@@ -56,7 +56,7 @@ export function Testimonials({
           {reviews.map((r) => (
             <article
               key={r.slug}
-              className="rounded-[24px] bg-surface-soft p-6 sm:p-8 lg:p-10 ring-1 ring-hairline h-full flex flex-col"
+              className="rounded-[24px] bg-surface-soft p-5 sm:p-8 lg:p-10 ring-1 ring-hairline h-full flex flex-col"
             >
               <div className="flex items-center gap-4 mb-6 sm:mb-7">
                 <span className="relative h-14 w-14 sm:h-16 sm:w-16 rounded-[14px] bg-white ring-1 ring-hairline overflow-hidden shrink-0 grid place-items-center p-2">

@@ -14,6 +14,7 @@ import {
   SERVICE_CATEGORIES,
 } from "@/lib/services";
 import { CATEGORY_LABEL, getPortfolioByCategory } from "@/lib/portfolio";
+import { buildMeta, breadcrumbJsonLd, serviceJsonLd } from "@/lib/seo";
 
 const SERVICE_TO_PORTFOLIO_CATEGORY: Record<string, string> = {
   "korporativnye-meroprijatija": "corporate",
@@ -33,10 +34,19 @@ export async function generateMetadata(
   const { slug } = await props.params;
   const svc = getServiceBySlug(slug);
   if (!svc) return { title: "Услуги — Паритет Events" };
-  return {
-    title: `${svc.title} — Паритет Events`,
-    description: svc.description?.slice(0, 200),
-  };
+  const title =
+    svc.seo?.seoTitle?.trim() || `${svc.title} — Паритет Events`;
+  const description =
+    svc.seo?.metaDescription?.trim() ||
+    svc.seo?.ogDescription?.trim() ||
+    svc.description?.slice(0, 200);
+  return buildMeta({
+    path: `/services/${svc.slug}`,
+    title,
+    description,
+    image: svc.image,
+    type: "website",
+  });
 }
 
 type Section =
@@ -133,8 +143,36 @@ export default async function ServiceDetailPage(
       ),
   );
 
+  const serviceSchema = serviceJsonLd({
+    url: `/services/${svc.slug}`,
+    title: svc.title,
+    description:
+      svc.seo?.metaDescription?.trim() || svc.description?.slice(0, 300),
+    image: heroImage,
+  });
+  const breadcrumbs = breadcrumbJsonLd([
+    { name: "Главная", url: "/" },
+    { name: "Услуги", url: "/services" },
+    ...(isCategory
+      ? [{ name: svc.title, url: `/services/${svc.slug}` }]
+      : [
+          ...(categoryTitle
+            ? [{ name: categoryTitle, url: `/services/${svc.category}` }]
+            : []),
+          { name: svc.title, url: `/services/${svc.slug}` },
+        ]),
+  ]);
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
+      />
       <Header />
       <main className="flex-1">
         {/* HERO — full-bleed image + dark overlay; targets ~100svh, grows for long content */}
@@ -267,7 +305,7 @@ export default async function ServiceDetailPage(
                             <p className="text-[11px] sm:text-[12px] tracking-[0.28em] uppercase text-muted-fg">
                               Этапы работы
                             </p>
-                            <h2 className="mt-4 font-heading text-[28px] sm:text-[40px] md:text-[48px] leading-[1.08] tracking-[-0.025em] text-ink">
+                            <h2 className="mt-4 font-heading text-[24px] sm:text-[36px] md:text-[48px] leading-[1.08] tracking-[-0.025em] text-ink">
                               {g.title}
                             </h2>
                           </div>
@@ -279,9 +317,9 @@ export default async function ServiceDetailPage(
                           {g.items.map((s, i) => (
                             <li
                               key={i}
-                              className="rounded-[20px] bg-surface-soft p-7 sm:p-8 ring-1 ring-hairline flex flex-col"
+                              className="rounded-[20px] bg-surface-soft p-6 sm:p-8 ring-1 ring-hairline flex flex-col"
                             >
-                              <span className="font-heading text-[40px] sm:text-[52px] lg:text-[64px] leading-none tracking-[-0.03em] text-brand">
+                              <span className="font-heading text-[36px] sm:text-[52px] lg:text-[64px] leading-none tracking-[-0.03em] text-brand">
                                 {String(i + 1).padStart(2, "0")}
                               </span>
                               <h3 className="mt-5 sm:mt-6 text-[18px] sm:text-[20px] leading-snug font-medium text-ink">
@@ -473,7 +511,7 @@ export default async function ServiceDetailPage(
         <section className="bg-white">
           <div className="container-page pb-16 sm:pb-20 lg:pb-24">
             <div
-              className="rounded-[20px] sm:rounded-[28px] px-6 sm:px-14 lg:px-20 py-12 sm:py-16 lg:py-24 text-white relative overflow-hidden"
+              className="rounded-[20px] sm:rounded-[28px] px-5 sm:px-12 lg:px-20 py-10 sm:py-16 lg:py-24 text-white relative overflow-hidden"
               style={{
                 background:
                   "linear-gradient(135deg, #1f1a55 0%, #2a1a78 60%, #3a107a 100%)",
@@ -489,7 +527,7 @@ export default async function ServiceDetailPage(
               />
 
               <div className="relative max-w-3xl">
-                <h2 className="font-heading text-[32px] sm:text-[48px] md:text-[64px] leading-[1.08] sm:leading-[1.02] tracking-[-0.025em]">
+                <h2 className="font-heading text-[28px] sm:text-[44px] md:text-[64px] leading-[1.08] sm:leading-[1.02] tracking-[-0.025em]">
                   Начнём планировать?
                 </h2>
                 <p className="mt-5 sm:mt-7 text-[15px] sm:text-[16px] leading-relaxed text-white/80 max-w-lg">
@@ -499,13 +537,13 @@ export default async function ServiceDetailPage(
                 <div className="mt-8 sm:mt-10 space-y-2 sm:space-y-3">
                   <a
                     href="tel:+79214102121"
-                    className="block font-heading text-[28px] sm:text-[40px] md:text-[52px] leading-none tracking-[-0.02em] hover:text-accent-coral transition-colors"
+                    className="block font-heading text-[24px] sm:text-[40px] md:text-[52px] leading-none tracking-[-0.02em] hover:text-accent-coral transition-colors"
                   >
                     +7 (921) 410-21-21
                   </a>
                   <a
                     href="tel:+79219519282"
-                    className="block font-heading text-[28px] sm:text-[40px] md:text-[52px] leading-none tracking-[-0.02em] hover:text-accent-coral transition-colors"
+                    className="block font-heading text-[24px] sm:text-[40px] md:text-[52px] leading-none tracking-[-0.02em] hover:text-accent-coral transition-colors"
                   >
                     +7 (921) 951-92-82
                   </a>

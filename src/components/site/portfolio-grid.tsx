@@ -36,7 +36,7 @@ export function PortfolioGrid({ events }: { events: PortfolioEvent[] }) {
   return (
     <>
       <div className="container-page pb-12 sm:pb-14 lg:pb-16">
-        <div className="flex flex-wrap gap-2.5 sm:gap-3">
+        <div className="flex flex-wrap gap-2 sm:gap-3">
           {FILTERS.map((f) => {
             const active = f.value === filter;
             return (
@@ -44,7 +44,7 @@ export function PortfolioGrid({ events }: { events: PortfolioEvent[] }) {
                 key={f.value}
                 type="button"
                 onClick={() => setFilter(f.value)}
-                className={`inline-flex h-11 sm:h-12 items-center rounded-full px-5 sm:px-6 text-[14px] sm:text-[15px] font-medium transition-colors ${
+                className={`inline-flex h-10 sm:h-12 items-center rounded-full px-4 sm:px-6 text-[13px] sm:text-[15px] font-medium transition-colors ${
                   active
                     ? "bg-accent-coral text-white"
                     : "text-white/85 hover:text-white hover:bg-white/10"

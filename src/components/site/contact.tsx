@@ -3,7 +3,7 @@ export function Contact() {
     <section id="contact" className="relative bg-white">
       <div className="container-page py-16 sm:py-20 lg:py-24">
         <div
-          className="rounded-[20px] sm:rounded-[28px] px-6 sm:px-14 lg:px-20 py-12 sm:py-16 lg:py-24 text-white relative overflow-hidden"
+          className="rounded-[20px] sm:rounded-[28px] px-5 sm:px-12 lg:px-20 py-10 sm:py-16 lg:py-24 text-white relative overflow-hidden"
           style={{
             background:
               "linear-gradient(135deg, #1f1a55 0%, #2a1a78 60%, #3a107a 100%)",
@@ -19,7 +19,7 @@ export function Contact() {
           />
 
           <div className="relative max-w-3xl">
-            <h2 className="font-heading text-[32px] sm:text-[48px] md:text-[64px] leading-[1.08] sm:leading-[1.02] tracking-[-0.025em]">
+            <h2 className="font-heading text-[28px] sm:text-[44px] md:text-[64px] leading-[1.08] sm:leading-[1.02] tracking-[-0.025em]">
               Начнём планировать?
             </h2>
             <p className="mt-5 sm:mt-7 text-[15px] sm:text-[16px] leading-relaxed text-white/80 max-w-lg">
@@ -29,13 +29,13 @@ export function Contact() {
             <div className="mt-8 sm:mt-10 space-y-2 sm:space-y-3">
               <a
                 href="tel:+79214102121"
-                className="block font-heading text-[28px] sm:text-[40px] md:text-[52px] leading-none tracking-[-0.02em] hover:text-accent-coral transition-colors"
+                className="block font-heading text-[24px] sm:text-[40px] md:text-[52px] leading-none tracking-[-0.02em] hover:text-accent-coral transition-colors"
               >
                 +7 (921) 410-21-21
               </a>
               <a
                 href="tel:+79219519282"
-                className="block font-heading text-[28px] sm:text-[40px] md:text-[52px] leading-none tracking-[-0.02em] hover:text-accent-coral transition-colors"
+                className="block font-heading text-[24px] sm:text-[40px] md:text-[52px] leading-none tracking-[-0.02em] hover:text-accent-coral transition-colors"
               >
                 +7 (921) 951-92-82
               </a>

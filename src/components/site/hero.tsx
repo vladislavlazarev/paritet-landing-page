@@ -26,7 +26,7 @@ export function Hero() {
 
       <div className="container-page pb-8 sm:pb-10 lg:pb-14">
         <div className="max-w-3xl">
-          <h1 className="font-heading text-[40px] sm:text-[56px] md:text-[64px] lg:text-[84px] leading-[1.05] sm:leading-[1.02] tracking-[-0.025em] text-white">
+          <h1 className="font-heading text-[36px] sm:text-[56px] md:text-[64px] lg:text-[84px] leading-[1.05] sm:leading-[1.02] tracking-[-0.025em] text-white">
             Профессионально
             <br />
             <span className="text-white/85">об искусстве</span>

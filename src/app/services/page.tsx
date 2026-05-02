@@ -1,19 +1,29 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
 import { SERVICE_GROUPS } from "@/lib/services-home-data";
+import { buildMeta, breadcrumbJsonLd } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Услуги — Паритет Events",
+export const metadata = buildMeta({
+  path: "/services",
+  title: "Услуги Паритет Events: организация мероприятий в Санкт-Петербурге",
   description:
-    "Форматы мероприятий и перечень услуг Paritet Events: корпоративы, тимбилдинги, концерты, частные праздники, деловые и онлайн-мероприятия.",
-};
+    "Форматы мероприятий и услуг Paritet Events: корпоративы, тимбилдинги, концерты, частные праздники, деловые и онлайн-мероприятия в Санкт-Петербурге.",
+});
+
+const breadcrumbs = breadcrumbJsonLd([
+  { name: "Главная", url: "/" },
+  { name: "Услуги", url: "/services" },
+]);
 
 export default function ServicesPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
+      />
       <Header />
       <main className="flex-1">
         <section className="relative bg-brand text-white overflow-hidden">
@@ -34,11 +44,11 @@ export default function ServicesPage() {
             }}
           />
 
-          <div className="container-page relative pt-28 sm:pt-36 lg:pt-44 pb-16 sm:pb-20 lg:pb-28">
+          <div className="container-page relative pt-24 sm:pt-36 lg:pt-44 pb-14 sm:pb-20 lg:pb-28">
             <p className="text-[12px] sm:text-[13px] tracking-[0.28em] uppercase text-white/55">
               Что мы делаем
             </p>
-            <h1 className="mt-5 sm:mt-6 font-heading text-[52px] sm:text-[80px] md:text-[100px] lg:text-[120px] leading-[0.95] tracking-[-0.03em] text-white">
+            <h1 className="mt-5 sm:mt-6 font-heading text-[44px] sm:text-[72px] md:text-[100px] lg:text-[120px] leading-[0.95] tracking-[-0.03em] text-white">
               Услуги
             </h1>
             <p className="mt-7 sm:mt-9 lg:mt-10 max-w-2xl text-[15px] sm:text-[16px] lg:text-[17px] leading-relaxed text-white/85">
@@ -66,12 +76,12 @@ export default function ServicesPage() {
                     style={{ background: g.accent }}
                   />
 
-                  <div className="px-7 sm:px-10 lg:px-14 py-9 sm:py-11 lg:py-14">
+                  <div className="px-5 sm:px-10 lg:px-14 py-7 sm:py-11 lg:py-14">
                     <Link
                       href={`/services/${g.slug}`}
                       className="group/title inline-flex items-center gap-2.5"
                     >
-                      <h2 className="font-heading text-[26px] sm:text-[32px] lg:text-[40px] leading-[1.05] tracking-[-0.02em] text-brand transition-colors group-hover/title:text-[color:var(--accent)]">
+                      <h2 className="font-heading text-[22px] sm:text-[30px] lg:text-[40px] leading-[1.05] tracking-[-0.02em] text-brand transition-colors group-hover/title:text-[color:var(--accent)]">
                         {g.title}
                       </h2>
                       <span

@@ -116,8 +116,8 @@ export default function KoncertmeisterPage() {
 
           <div className="container-page pb-10 sm:pb-14 lg:pb-20">
             <div className="max-w-4xl">
-              <h1 className="font-heading text-[44px] sm:text-[64px] md:text-[76px] lg:text-[100px] leading-[1] tracking-[-0.03em] text-white">
-                <span className="block font-heading text-[16px] sm:text-[20px] md:text-[22px] lg:text-[26px] tracking-[0.04em] uppercase text-white/55 mb-3 sm:mb-4">
+              <h1 className="font-heading text-[36px] sm:text-[60px] md:text-[76px] lg:text-[100px] leading-[1] tracking-[-0.03em] text-white">
+                <span className="block font-heading text-[14px] sm:text-[20px] md:text-[22px] lg:text-[26px] tracking-[0.06em] uppercase text-white/55 mb-3 sm:mb-4">
                   Музыкальный тимбилдинг
                 </span>
                 Концертмейстер
@@ -131,7 +131,7 @@ export default function KoncertmeisterPage() {
               </p>
 
               <div className="mt-7 sm:mt-9">
-                <p className="font-heading text-[28px] sm:text-[34px] lg:text-[40px] leading-none tracking-[-0.02em] text-accent-coral">
+                <p className="font-heading text-[24px] sm:text-[32px] lg:text-[40px] leading-none tracking-[-0.02em] text-accent-coral">
                   от 3 000 ₽ <span className="text-white/85">с человека</span>
                 </p>
                 <p className="mt-3 text-[12px] sm:text-[13px] tracking-[0.06em] text-white/55">
@@ -168,7 +168,7 @@ export default function KoncertmeisterPage() {
                 <p className="text-[11px] sm:text-[12px] tracking-[0.28em] uppercase text-muted-fg">
                   Как это работает
                 </p>
-                <h2 className="mt-4 font-heading text-[32px] sm:text-[44px] md:text-[52px] leading-[1.08] sm:leading-[1.04] tracking-[-0.025em] text-ink">
+                <h2 className="mt-4 font-heading text-[26px] sm:text-[40px] md:text-[52px] leading-[1.08] sm:leading-[1.04] tracking-[-0.025em] text-ink">
                   Три шага от заявки до&nbsp;концерта
                 </h2>
               </div>
@@ -182,9 +182,9 @@ export default function KoncertmeisterPage() {
               {STEPS.map((s, i) => (
                 <li
                   key={i}
-                  className="rounded-[20px] bg-surface-soft p-7 sm:p-8 lg:p-10 ring-1 ring-hairline flex flex-col"
+                  className="rounded-[20px] bg-surface-soft p-6 sm:p-8 lg:p-10 ring-1 ring-hairline flex flex-col"
                 >
-                  <span className="font-heading text-[44px] sm:text-[56px] lg:text-[72px] leading-none tracking-[-0.03em] text-brand">
+                  <span className="font-heading text-[36px] sm:text-[56px] lg:text-[72px] leading-none tracking-[-0.03em] text-brand">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <h3 className="mt-5 sm:mt-6 text-[18px] sm:text-[20px] leading-snug font-medium text-ink">
@@ -207,7 +207,7 @@ export default function KoncertmeisterPage() {
                 <p className="text-[11px] sm:text-[12px] tracking-[0.28em] uppercase text-muted-fg">
                   Видео
                 </p>
-                <h2 className="mt-4 font-heading text-[28px] sm:text-[36px] md:text-[44px] leading-[1.08] tracking-[-0.025em] text-ink">
+                <h2 className="mt-4 font-heading text-[24px] sm:text-[34px] md:text-[44px] leading-[1.08] tracking-[-0.025em] text-ink">
                   Как это звучит вживую
                 </h2>
               </div>
@@ -245,7 +245,7 @@ export default function KoncertmeisterPage() {
               <p className="text-[11px] sm:text-[12px] tracking-[0.28em] uppercase text-white/55">
                 Программа
               </p>
-              <h2 className="mt-4 font-heading text-[32px] sm:text-[44px] md:text-[56px] leading-[1.08] sm:leading-[1.03] tracking-[-0.025em] text-white">
+              <h2 className="mt-4 font-heading text-[26px] sm:text-[40px] md:text-[56px] leading-[1.08] sm:leading-[1.03] tracking-[-0.025em] text-white">
                 Какую музыку гарантировано исполнит ваша команда?
               </h2>
             </div>
@@ -278,7 +278,7 @@ export default function KoncertmeisterPage() {
               </div>
 
               <div className="lg:col-span-7">
-                <div className="rounded-[20px] sm:rounded-[24px] bg-white/[0.04] ring-1 ring-white/10 backdrop-blur-sm p-6 sm:p-8 lg:p-10">
+                <div className="rounded-[20px] sm:rounded-[24px] bg-white/[0.04] ring-1 ring-white/10 backdrop-blur-sm p-5 sm:p-8 lg:p-10">
                   <div className="flex items-end justify-between mb-6 sm:mb-8 pb-5 sm:pb-6 border-b border-white/10">
                     <div>
                       <p className="text-[10px] sm:text-[11px] tracking-[0.28em] uppercase text-white/55">
@@ -297,13 +297,13 @@ export default function KoncertmeisterPage() {
                     {SOUNDTRACKS.map((s, i) => (
                       <li
                         key={s.title}
-                        className="group flex items-center gap-4 sm:gap-6 py-3.5 sm:py-4 border-b border-white/[0.06] last:border-0 transition-colors hover:bg-white/[0.02] -mx-3 px-3 rounded-lg"
+                        className="group flex items-center gap-3 sm:gap-6 py-3 sm:py-4 border-b border-white/[0.06] last:border-0 transition-colors hover:bg-white/[0.02] -mx-2 sm:-mx-3 px-2 sm:px-3 rounded-lg"
                       >
                         <span className="font-mono text-[11px] sm:text-[12px] text-white/40 tabular-nums w-7 sm:w-8 group-hover:text-accent-coral transition-colors">
                           {String(i + 1).padStart(2, "0")}
                         </span>
                         <div className="grow min-w-0">
-                          <p className="font-heading text-[18px] sm:text-[22px] lg:text-[24px] leading-tight tracking-[-0.015em] text-white truncate">
+                          <p className="font-heading text-[16px] sm:text-[22px] lg:text-[24px] leading-tight tracking-[-0.015em] text-white truncate">
                             {s.title}
                           </p>
                           <p className="mt-0.5 text-[12px] sm:text-[13px] text-white/50">
@@ -389,7 +389,7 @@ export default function KoncertmeisterPage() {
                 <p className="text-[11px] sm:text-[12px] tracking-[0.28em] uppercase text-muted-fg">
                   Другие услуги
                 </p>
-                <h2 className="mt-4 font-heading text-[32px] sm:text-[44px] md:text-[52px] leading-[1.08] sm:leading-[1.03] tracking-[-0.025em] text-ink">
+                <h2 className="mt-4 font-heading text-[26px] sm:text-[40px] md:text-[52px] leading-[1.08] sm:leading-[1.03] tracking-[-0.025em] text-ink">
                   Под ваш формат и&nbsp;масштаб
                 </h2>
               </div>
@@ -445,7 +445,7 @@ export default function KoncertmeisterPage() {
         <section className="bg-white">
           <div className="container-page pb-16 sm:pb-20 lg:pb-24">
             <div
-              className="rounded-[20px] sm:rounded-[28px] px-6 sm:px-14 lg:px-20 py-12 sm:py-16 lg:py-24 text-white relative overflow-hidden"
+              className="rounded-[20px] sm:rounded-[28px] px-5 sm:px-12 lg:px-20 py-10 sm:py-16 lg:py-24 text-white relative overflow-hidden"
               style={{
                 background:
                   "linear-gradient(135deg, #1f1a55 0%, #2a1a78 60%, #3a107a 100%)",
@@ -461,7 +461,7 @@ export default function KoncertmeisterPage() {
               />
 
               <div className="relative max-w-3xl">
-                <h2 className="font-heading text-[32px] sm:text-[48px] md:text-[64px] leading-[1.08] sm:leading-[1.02] tracking-[-0.025em]">
+                <h2 className="font-heading text-[28px] sm:text-[44px] md:text-[64px] leading-[1.08] sm:leading-[1.02] tracking-[-0.025em]">
                   Начнём планировать?
                 </h2>
                 <p className="mt-5 sm:mt-7 text-[15px] sm:text-[16px] leading-relaxed text-white/80 max-w-lg">
@@ -471,13 +471,13 @@ export default function KoncertmeisterPage() {
                 <div className="mt-8 sm:mt-10 space-y-2 sm:space-y-3">
                   <a
                     href="tel:+79214102121"
-                    className="block font-heading text-[28px] sm:text-[40px] md:text-[52px] leading-none tracking-[-0.02em] hover:text-accent-coral transition-colors"
+                    className="block font-heading text-[24px] sm:text-[40px] md:text-[52px] leading-none tracking-[-0.02em] hover:text-accent-coral transition-colors"
                   >
                     +7 (921) 410-21-21
                   </a>
                   <a
                     href="tel:+79219519282"
-                    className="block font-heading text-[28px] sm:text-[40px] md:text-[52px] leading-none tracking-[-0.02em] hover:text-accent-coral transition-colors"
+                    className="block font-heading text-[24px] sm:text-[40px] md:text-[52px] leading-none tracking-[-0.02em] hover:text-accent-coral transition-colors"
                   >
                     +7 (921) 951-92-82
                   </a>

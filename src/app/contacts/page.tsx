@@ -42,11 +42,11 @@ export default function ContactsPage() {
             style={{ backgroundImage: NOISE_SVG }}
           />
 
-          <div className="container-page relative pt-28 sm:pt-36 lg:pt-44 pb-16 sm:pb-20 lg:pb-28">
+          <div className="container-page relative pt-24 sm:pt-36 lg:pt-44 pb-14 sm:pb-20 lg:pb-28">
             <p className="text-[12px] sm:text-[13px] tracking-[0.28em] uppercase text-white/55">
               Паритет Events
             </p>
-            <h1 className="mt-5 sm:mt-6 font-heading text-[64px] sm:text-[96px] md:text-[120px] lg:text-[160px] leading-[0.92] tracking-[-0.03em] text-white">
+            <h1 className="mt-5 sm:mt-6 font-heading text-[52px] sm:text-[88px] md:text-[120px] lg:text-[160px] leading-[0.92] tracking-[-0.03em] text-white">
               Контакты
             </h1>
             <p className="mt-7 sm:mt-9 lg:mt-10 max-w-2xl text-[15px] sm:text-[16px] lg:text-[17px] leading-relaxed text-white/85">
@@ -69,13 +69,13 @@ export default function ContactsPage() {
                 <div className="mt-7 sm:mt-9 space-y-2.5">
                   <a
                     href="tel:+79214102121"
-                    className="block text-[20px] sm:text-[24px] font-medium tracking-[-0.01em] text-brand hover:text-accent-coral transition-colors"
+                    className="block text-[22px] sm:text-[24px] font-medium tracking-[-0.01em] text-brand hover:text-accent-coral transition-colors"
                   >
                     +7 (921) 410-21-21
                   </a>
                   <a
                     href="tel:+79219519282"
-                    className="block text-[20px] sm:text-[24px] font-medium tracking-[-0.01em] text-brand hover:text-accent-coral transition-colors"
+                    className="block text-[22px] sm:text-[24px] font-medium tracking-[-0.01em] text-brand hover:text-accent-coral transition-colors"
                   >
                     +7 (921) 951-92-82
                   </a>

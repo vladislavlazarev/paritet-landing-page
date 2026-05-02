@@ -61,8 +61,8 @@ export function About() {
       <div className="container-page py-16 sm:py-20 lg:py-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-stretch">
           <div className="lg:col-span-5 flex flex-col">
-            <h3 className="font-heading text-[28px] sm:text-[36px] md:text-[44px] lg:text-[52px] leading-[1.1] sm:leading-[1.05] tracking-[-0.025em] text-brand">
-              <span className="whitespace-nowrap">«Паритет Events» —</span>
+            <h3 className="font-heading text-[26px] sm:text-[36px] md:text-[44px] lg:text-[52px] leading-[1.1] sm:leading-[1.05] tracking-[-0.025em] text-brand">
+              <span className="sm:whitespace-nowrap">«Паритет Events» —</span>
               <br /> организация праздников
             </h3>
             <p className="mt-5 sm:mt-6 text-[15px] sm:text-[16px] leading-relaxed text-body max-w-md">

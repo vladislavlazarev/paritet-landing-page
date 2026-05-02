@@ -17,7 +17,7 @@ export function Events() {
     >
       <div className="container-page pt-16 sm:pt-24 lg:pt-32 pb-8 sm:pb-12">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-5 sm:gap-6">
-          <h2 className="font-heading text-[32px] sm:text-[44px] md:text-[56px] leading-[1.08] sm:leading-[1.03] tracking-[-0.025em] text-white">
+          <h2 className="font-heading text-[28px] sm:text-[40px] md:text-[56px] leading-[1.08] sm:leading-[1.03] tracking-[-0.025em] text-white">
             Последние мероприятия
           </h2>
           <Link

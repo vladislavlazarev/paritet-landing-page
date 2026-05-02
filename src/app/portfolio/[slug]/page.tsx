@@ -11,6 +11,11 @@ import {
   getNextPortfolio,
   getPortfolioBySlug,
 } from "@/lib/portfolio";
+import {
+  buildMeta,
+  articleJsonLd,
+  breadcrumbJsonLd,
+} from "@/lib/seo";
 
 export function generateStaticParams() {
   return PORTFOLIO.map((e) => ({ slug: e.slug }));
@@ -23,16 +28,28 @@ export async function generateMetadata(
   const event = getPortfolioBySlug(slug);
   if (!event) return { title: "Портфолио — Паритет Events" };
   const firstParagraph = event.body.find((b) => b.kind === "paragraph");
-  return {
-    title: `${event.title} — Паритет Events`,
-    description: firstParagraph ? firstParagraph.text.slice(0, 200) : undefined,
-  };
+  // Prefer SEO fields scraped from the source so we keep the same title and
+  // description that earned the page its current ranking.
+  const title =
+    event.seo?.seoTitle?.trim() ||
+    `${event.title} — Паритет Events`;
+  const description =
+    event.seo?.metaDescription?.trim() ||
+    event.seo?.ogDescription?.trim() ||
+    (firstParagraph ? firstParagraph.text.slice(0, 200) : undefined);
+  return buildMeta({
+    path: `/portfolio/${event.slug}`,
+    title,
+    description,
+    image: event.coverImage,
+    type: "article",
+  });
 }
 
 function BlockView({ block }: { block: PortfolioBlock }) {
   if (block.kind === "heading") {
     return (
-      <h2 className="font-heading text-[24px] sm:text-[28px] lg:text-[32px] leading-[1.15] tracking-[-0.02em] text-brand mt-10 sm:mt-12">
+      <h2 className="font-heading text-[22px] sm:text-[28px] lg:text-[32px] leading-[1.15] tracking-[-0.02em] text-brand mt-8 sm:mt-12">
         {block.text}
       </h2>
     );
@@ -120,8 +137,31 @@ export default async function PortfolioEventPage(
   const heroSmall = event.images.slice(1, 5);
   const restImages = event.images.slice(5);
 
+  const firstParagraph = event.body.find((b) => b.kind === "paragraph");
+  const articleSchema = articleJsonLd({
+    url: `/portfolio/${event.slug}`,
+    title: event.title,
+    description:
+      event.seo?.metaDescription?.trim() ||
+      (firstParagraph ? firstParagraph.text.slice(0, 200) : undefined),
+    image: heroImage,
+  });
+  const breadcrumbs = breadcrumbJsonLd([
+    { name: "Главная", url: "/" },
+    { name: "Портфолио", url: "/portfolio" },
+    { name: event.title, url: `/portfolio/${event.slug}` },
+  ]);
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
+      />
       <Header />
       <main className="flex-1">
         <section
@@ -131,8 +171,8 @@ export default async function PortfolioEventPage(
               "radial-gradient(1000px 600px at 80% 0%, rgba(120,40,200,0.55), transparent 60%), radial-gradient(800px 500px at 0% 100%, rgba(238,59,86,0.25), transparent 60%)",
           }}
         >
-          <div className="container-page pt-32 sm:pt-40 lg:pt-48 pb-12 sm:pb-16 lg:pb-20">
-            <div className="grid grid-cols-[auto,1fr] gap-x-6 sm:gap-x-10 lg:gap-x-14 items-start">
+          <div className="container-page pt-24 sm:pt-36 lg:pt-48 pb-10 sm:pb-16 lg:pb-20">
+            <div className="grid grid-cols-[auto,1fr] gap-x-4 sm:gap-x-10 lg:gap-x-14 items-start">
               <Link
                 href="/portfolio"
                 aria-label="Назад в портфолио"
@@ -147,7 +187,7 @@ export default async function PortfolioEventPage(
                 <p className="text-[12px] sm:text-[13px] tracking-[0.22em] uppercase text-white/55">
                   {CATEGORY_LABEL[event.category]}
                 </p>
-                <h1 className="mt-3 font-heading text-[32px] sm:text-[44px] md:text-[56px] lg:text-[72px] leading-[1.05] tracking-[-0.025em] text-white">
+                <h1 className="mt-3 font-heading text-[28px] sm:text-[40px] md:text-[56px] lg:text-[72px] leading-[1.05] tracking-[-0.025em] text-white">
                   {event.title}
                 </h1>
               </div>
@@ -241,12 +281,12 @@ export default async function PortfolioEventPage(
                     "radial-gradient(420px 240px at 20% 50%, rgba(120,80,210,0.45), transparent 70%)",
                 }}
               />
-              <div className="relative grid grid-cols-1 sm:grid-cols-[1fr,auto] gap-6 sm:gap-10 items-center px-6 sm:px-10 lg:px-14 py-10 sm:py-14 lg:py-16">
+              <div className="relative grid grid-cols-1 sm:grid-cols-[1fr,auto] gap-6 sm:gap-10 items-center px-5 sm:px-10 lg:px-14 py-8 sm:py-14 lg:py-16">
                 <div>
                   <p className="text-[14px] text-white/60">
                     Следующее мероприятие
                   </p>
-                  <p className="mt-2 font-heading text-[22px] sm:text-[28px] lg:text-[32px] leading-[1.15] tracking-[-0.02em] text-white max-w-[560px]">
+                  <p className="mt-2 font-heading text-[20px] sm:text-[28px] lg:text-[32px] leading-[1.15] tracking-[-0.02em] text-white max-w-[560px]">
                     {next.title}
                   </p>
                 </div>

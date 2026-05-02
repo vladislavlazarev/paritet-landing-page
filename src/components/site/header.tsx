@@ -121,7 +121,7 @@ export function Header({ theme = "transparent", active }: HeaderProps) {
                   key={n.href}
                   href={n.href}
                   onClick={() => setOpen(false)}
-                  className="font-heading text-[28px] tracking-[-0.02em] text-white py-5 hover:text-accent-coral transition-colors"
+                  className="font-heading text-[24px] sm:text-[28px] tracking-[-0.02em] text-white py-4 sm:py-5 hover:text-accent-coral transition-colors"
                 >
                   {n.label}
                 </a>
