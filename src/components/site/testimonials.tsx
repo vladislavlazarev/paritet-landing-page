@@ -51,9 +51,9 @@ const reviews: Review[] = [
 export function Testimonials() {
   return (
     <section className="relative bg-white text-ink">
-      <div className="container-page py-24 lg:py-32">
-        <div className="max-w-2xl mb-12">
-          <h2 className="font-heading text-[40px] sm:text-[52px] leading-[1.04] tracking-[-0.025em] text-ink">
+      <div className="container-page py-16 sm:py-24 lg:py-32">
+        <div className="max-w-2xl mb-8 sm:mb-12">
+          <h2 className="font-heading text-[32px] sm:text-[44px] md:text-[52px] leading-[1.08] sm:leading-[1.04] tracking-[-0.025em] text-ink">
             Отзывы клиентов
           </h2>
         </div>
@@ -65,26 +65,26 @@ export function Testimonials() {
           {reviews.map((r, i) => (
             <article
               key={i}
-              className="rounded-[24px] bg-surface-soft p-8 lg:p-10 ring-1 ring-hairline h-full"
+              className="rounded-[24px] bg-surface-soft p-6 sm:p-8 lg:p-10 ring-1 ring-hairline h-full"
             >
-              <div className="flex items-center gap-4 mb-8">
+              <div className="flex items-center gap-4 mb-6 sm:mb-8">
                 <span
-                  className="grid h-14 w-14 place-items-center rounded-[14px] text-white text-[14px] font-bold tracking-wider"
+                  className="grid h-12 w-12 sm:h-14 sm:w-14 place-items-center rounded-[14px] text-white text-[13px] sm:text-[14px] font-bold tracking-wider shrink-0"
                   style={{ background: r.brandColor }}
                 >
                   {r.badge}
                 </span>
-                <div>
-                  <p className="text-[14px] font-semibold tracking-[0.18em] uppercase text-ink">
+                <div className="min-w-0">
+                  <p className="text-[13px] sm:text-[14px] font-semibold tracking-[0.16em] sm:tracking-[0.18em] uppercase text-ink">
                     {r.brand}
                   </p>
-                  <p className="text-[13px] text-muted-fg mt-1">{r.role}</p>
+                  <p className="text-[12px] sm:text-[13px] text-muted-fg mt-1">{r.role}</p>
                 </div>
               </div>
-              <p className="text-[18px] leading-relaxed text-ink">
+              <p className="text-[16px] sm:text-[18px] leading-relaxed text-ink">
                 «{r.quote}»
               </p>
-              <div className="mt-8 pt-6 border-t border-hairline flex items-center justify-between">
+              <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-hairline flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                 <span className="text-[14px] font-medium text-ink">{r.author}</span>
                 <a
                   href="#"

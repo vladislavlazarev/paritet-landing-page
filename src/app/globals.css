@@ -131,7 +131,7 @@
   width: 100%;
   margin-inline: auto;
   padding-inline: 1.25rem;
-  max-width: 1240px;
+  max-width: 1364px;
 
   @media (min-width: 640px) {
     padding-inline: 2rem;
@@ -150,8 +150,8 @@
   @media (min-width: 1024px) {
     padding-left: 3rem;
   }
-  @media (min-width: 1336px) {
-    padding-left: calc((100vw - 1240px) / 2 + 3rem);
+  @media (min-width: 1460px) {
+    padding-left: calc((100vw - 1364px) / 2 + 3rem);
   }
 }
 
@@ -164,8 +164,8 @@
   @media (min-width: 1024px) {
     padding-right: 3rem;
   }
-  @media (min-width: 1336px) {
-    padding-right: calc((100vw - 1240px) / 2 + 3rem);
+  @media (min-width: 1460px) {
+    padding-right: calc((100vw - 1364px) / 2 + 3rem);
   }
 }
 

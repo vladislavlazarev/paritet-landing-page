@@ -56,9 +56,9 @@ export function Events() {
           "radial-gradient(1000px 600px at 80% 0%, rgba(120,40,200,0.55), transparent 60%), radial-gradient(800px 500px at 0% 100%, rgba(238,59,86,0.25), transparent 60%)",
       }}
     >
-      <div className="container-page pt-24 lg:pt-32 pb-12">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
-          <h2 className="font-heading text-[40px] sm:text-[56px] leading-[1.03] tracking-[-0.025em] text-white">
+      <div className="container-page pt-16 sm:pt-24 lg:pt-32 pb-8 sm:pb-12">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-5 sm:gap-6">
+          <h2 className="font-heading text-[32px] sm:text-[44px] md:text-[56px] leading-[1.08] sm:leading-[1.03] tracking-[-0.025em] text-white">
             Последние мероприятия
           </h2>
           <a
@@ -70,7 +70,7 @@ export function Events() {
         </div>
       </div>
 
-      <div className="container-page-left pb-24 lg:pb-32">
+      <div className="container-page-left pb-16 sm:pb-24 lg:pb-32">
         <Carousel
           showCount
           controlsTone="dark"

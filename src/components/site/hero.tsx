@@ -1,6 +1,6 @@
 export function Hero() {
   return (
-    <section className="relative isolate overflow-hidden bg-[#0a0b0d] text-white h-[100vh] flex items-end">
+    <section className="relative isolate overflow-hidden bg-[#0a0b0d] text-white min-h-[100svh] flex items-end pt-24 sm:pt-28">
       <video
         className="absolute inset-0 h-full w-full object-cover -z-20"
         autoPlay
@@ -24,26 +24,26 @@ export function Hero() {
         }}
       />
 
-      <div className="container-page pb-10 lg:pb-14">
+      <div className="container-page pb-8 sm:pb-10 lg:pb-14">
         <div className="max-w-3xl">
-          <h1 className="font-heading text-[44px] sm:text-[64px] lg:text-[84px] leading-[1.02] tracking-[-0.025em] text-white">
+          <h1 className="font-heading text-[40px] sm:text-[56px] md:text-[64px] lg:text-[84px] leading-[1.05] sm:leading-[1.02] tracking-[-0.025em] text-white">
             Профессионально
             <br />
             <span className="text-white/85">об искусстве</span>
             <br />
             мероприятий
           </h1>
-          <p className="mt-7 max-w-xl text-[16px] leading-relaxed text-white/75">
+          <p className="mt-5 sm:mt-7 max-w-xl text-[15px] sm:text-[16px] leading-relaxed text-white/75">
             Уже более 20 лет создаём уникальные события для частных клиентов
             и компаний с мировым именем — от камерных праздников до фестивалей
             на тысячи гостей.
           </p>
-          <div className="mt-9">
+          <div className="mt-7 sm:mt-9">
             <a
               href="https://wa.me/79214102121"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-14 items-center gap-2 rounded-full bg-accent-coral px-7 text-[15px] font-semibold text-white hover:bg-accent-coral-strong transition-colors"
+              className="inline-flex h-12 sm:h-14 items-center gap-2 rounded-full bg-accent-coral px-5 sm:px-7 text-[14px] sm:text-[15px] font-semibold text-white hover:bg-accent-coral-strong transition-colors"
             >
               Написать в WhatsApp
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" /></svg>

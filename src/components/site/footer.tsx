@@ -3,17 +3,17 @@ import { Logo } from "./logo";
 export function Footer() {
   return (
     <footer className="bg-brand-strong text-white/70">
-      <div className="container-page py-16 lg:py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-          <div className="lg:col-span-4">
+      <div className="container-page py-12 sm:py-16 lg:py-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 sm:gap-10">
+          <div className="sm:col-span-2 lg:col-span-4">
             <Logo />
-            <p className="mt-6 text-[14px] leading-relaxed max-w-xs">
+            <p className="mt-5 sm:mt-6 text-[14px] leading-relaxed max-w-xs">
               Paritet Events — организация и проведение праздничных
               мероприятий в Санкт-Петербурге. © 2000–2026
             </p>
           </div>
           <div className="lg:col-span-3">
-            <h4 className="text-white text-[12px] font-semibold tracking-[0.22em] uppercase mb-5">
+            <h4 className="text-white text-[12px] font-semibold tracking-[0.22em] uppercase mb-4 sm:mb-5">
               Контакты
             </h4>
             <ul className="space-y-3 text-[14px]">
@@ -40,7 +40,7 @@ export function Footer() {
             </ul>
           </div>
           <div className="lg:col-span-2">
-            <h4 className="text-white text-[12px] font-semibold tracking-[0.22em] uppercase mb-5">
+            <h4 className="text-white text-[12px] font-semibold tracking-[0.22em] uppercase mb-4 sm:mb-5">
               Разделы
             </h4>
             <ul className="space-y-3 text-[14px]">
@@ -50,8 +50,8 @@ export function Footer() {
               <li><a href="#contact" className="hover:text-white">Контакты</a></li>
             </ul>
           </div>
-          <div className="lg:col-span-3">
-            <h4 className="text-white text-[12px] font-semibold tracking-[0.22em] uppercase mb-5">
+          <div className="sm:col-span-2 lg:col-span-3">
+            <h4 className="text-white text-[12px] font-semibold tracking-[0.22em] uppercase mb-4 sm:mb-5">
               Соцсети
             </h4>
             <div className="flex gap-3">
@@ -73,9 +73,9 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row gap-3 sm:items-center justify-between text-[12px] text-white/45">
+        <div className="mt-10 sm:mt-12 pt-5 sm:pt-6 border-t border-white/10 flex flex-col sm:flex-row gap-3 sm:items-center justify-between text-[12px] text-white/45">
           <span>© 2000–2026 Paritet Events. Все права защищены.</span>
-          <div className="flex gap-6">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-6">
             <a href="#" className="hover:text-white">Политика конфиденциальности</a>
             <a href="#" className="hover:text-white">Условия использования</a>
           </div>

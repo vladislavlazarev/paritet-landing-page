@@ -36,21 +36,21 @@ export function About() {
   return (
     <section id="about" className="relative bg-white text-ink">
       <h2 className="sr-only">О компании</h2>
-      <div className="container-page py-20 lg:py-24">
+      <div className="container-page py-16 sm:py-20 lg:py-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-stretch">
           <div className="lg:col-span-5 flex flex-col">
-            <h3 className="font-heading text-[36px] sm:text-[44px] lg:text-[52px] leading-[1.05] tracking-[-0.025em] text-brand">
-              «Паритет Events» —
+            <h3 className="font-heading text-[28px] sm:text-[36px] md:text-[44px] lg:text-[52px] leading-[1.1] sm:leading-[1.05] tracking-[-0.025em] text-brand">
+              <span className="whitespace-nowrap">«Паритет Events» —</span>
               <br /> организация праздников
             </h3>
-            <p className="mt-6 text-[16px] leading-relaxed text-body max-w-md">
+            <p className="mt-5 sm:mt-6 text-[15px] sm:text-[16px] leading-relaxed text-body max-w-md">
               Уже более 20 лет нашу команду объединяет стремление дарить людям
               радость. За годы работы мы разработали сотни концепций и
               авторских форматов для частных клиентов и компаний с мировым
               именем.
             </p>
 
-            <div className="mt-7 flex flex-wrap items-center gap-3">
+            <div className="mt-6 sm:mt-7 flex flex-wrap items-center gap-3">
               <a
                 href="#contact"
                 className="inline-flex h-12 items-center rounded-full bg-brand px-6 text-[14px] font-semibold text-white hover:bg-brand-strong transition-colors"
@@ -65,29 +65,29 @@ export function About() {
               </a>
             </div>
 
-            <dl className="mt-auto pt-10 grid grid-cols-3 gap-6 max-w-md">
+            <dl className="mt-8 lg:mt-auto pt-8 sm:pt-10 grid grid-cols-3 gap-4 sm:gap-6 max-w-md">
               <div>
-                <dt className="text-[11px] tracking-[0.2em] uppercase text-muted-fg">Лет опыта</dt>
-                <dd className="mt-2 font-heading text-[30px] tracking-tight text-ink">20+</dd>
+                <dt className="text-[10px] sm:text-[11px] tracking-[0.18em] sm:tracking-[0.2em] uppercase text-muted-fg">Лет опыта</dt>
+                <dd className="mt-2 font-heading text-[24px] sm:text-[30px] tracking-tight text-ink">20+</dd>
               </div>
               <div>
-                <dt className="text-[11px] tracking-[0.2em] uppercase text-muted-fg">Проектов</dt>
-                <dd className="mt-2 font-heading text-[30px] tracking-tight text-ink">800+</dd>
+                <dt className="text-[10px] sm:text-[11px] tracking-[0.18em] sm:tracking-[0.2em] uppercase text-muted-fg">Проектов</dt>
+                <dd className="mt-2 font-heading text-[24px] sm:text-[30px] tracking-tight text-ink">800+</dd>
               </div>
               <div>
-                <dt className="text-[11px] tracking-[0.2em] uppercase text-muted-fg">Городов</dt>
-                <dd className="mt-2 font-heading text-[30px] tracking-tight text-ink">42</dd>
+                <dt className="text-[10px] sm:text-[11px] tracking-[0.18em] sm:tracking-[0.2em] uppercase text-muted-fg">Городов</dt>
+                <dd className="mt-2 font-heading text-[24px] sm:text-[30px] tracking-tight text-ink">42</dd>
               </div>
             </dl>
           </div>
 
           <div className="lg:col-span-7">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 h-full min-h-[460px] lg:min-h-0">
+            <div className="grid grid-cols-2 gap-3 lg:gap-4 h-full min-h-[420px] sm:min-h-[520px] lg:min-h-0">
               {cards.map((c, i) => (
                 <a
                   key={i}
                   href="#services"
-                  className="group relative overflow-hidden rounded-[20px] ring-1 ring-hairline h-full min-h-[260px]"
+                  className="group relative overflow-hidden rounded-[20px] ring-1 ring-hairline h-full min-h-[180px] sm:min-h-[240px]"
                   style={{ background: c.gradient }}
                 >
                   <div
@@ -103,15 +103,15 @@ export function About() {
                     className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/55 to-transparent"
                   />
 
-                  <span className="absolute top-5 right-5 text-2xl drop-shadow-[0_4px_10px_rgba(0,0,0,0.35)]">
+                  <span className="absolute top-4 right-4 sm:top-5 sm:right-5 text-xl sm:text-2xl drop-shadow-[0_4px_10px_rgba(0,0,0,0.35)]">
                     {c.emoji}
                   </span>
 
-                  <div className="absolute inset-x-0 bottom-0 p-5 lg:p-6 text-white">
-                    <p className="text-[10px] tracking-[0.22em] uppercase opacity-85">
+                  <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 lg:p-6 text-white">
+                    <p className="text-[9px] sm:text-[10px] tracking-[0.2em] sm:tracking-[0.22em] uppercase opacity-85">
                       {c.caption}
                     </p>
-                    <h4 className="mt-2 font-heading text-[20px] lg:text-[22px] leading-tight">
+                    <h4 className="mt-1.5 sm:mt-2 font-heading text-[16px] sm:text-[20px] lg:text-[22px] leading-tight">
                       {c.title}
                     </h4>
                   </div>

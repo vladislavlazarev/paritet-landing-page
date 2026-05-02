@@ -54,12 +54,12 @@ const groups: Group[] = [
 export function Services() {
   return (
     <section id="services" className="relative bg-white text-ink">
-      <div className="container-page py-24 lg:py-32">
-        <div className="max-w-2xl mb-14">
-          <h2 className="font-heading text-[40px] sm:text-[56px] leading-[1.04] tracking-[-0.025em] text-ink">
+      <div className="container-page py-16 sm:py-24 lg:py-32">
+        <div className="max-w-2xl mb-10 sm:mb-14">
+          <h2 className="font-heading text-[32px] sm:text-[44px] md:text-[56px] leading-[1.08] sm:leading-[1.04] tracking-[-0.025em] text-ink">
             Услуги
           </h2>
-          <p className="mt-6 text-[16px] leading-relaxed text-body">
+          <p className="mt-5 sm:mt-6 text-[15px] sm:text-[16px] leading-relaxed text-body">
             Для Вашего удобства мы создали данный раздел, где можно
             ознакомиться с форматами мероприятий и перечнем оказываемых услуг.
             Событие не должно обязательно вписываться в существующие рамки —
@@ -68,17 +68,17 @@ export function Services() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 lg:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 lg:gap-6">
           {groups.map((g, i) => (
             <div
               key={i}
-              className="rounded-[20px] ring-1 ring-hairline bg-white p-8 lg:p-10 flex flex-col"
+              className="rounded-[20px] ring-1 ring-hairline bg-white p-6 sm:p-8 lg:p-10 flex flex-col"
               style={{ borderLeft: `3px solid ${g.accent}` }}
             >
-              <h3 className="font-heading text-[24px] lg:text-[28px] leading-tight tracking-[-0.01em] text-brand">
+              <h3 className="font-heading text-[20px] sm:text-[24px] lg:text-[28px] leading-tight tracking-[-0.01em] text-brand">
                 {g.title}
               </h3>
-              <ul className="mt-6 grid gap-y-3 text-[16px]">
+              <ul className="mt-5 sm:mt-6 grid gap-y-3 text-[15px] sm:text-[16px]">
                 {g.items.map((item, j) => (
                   <li key={j} className="flex items-start gap-3 text-body">
                     <span
