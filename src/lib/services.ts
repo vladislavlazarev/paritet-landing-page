@@ -10,6 +10,15 @@ export type ServiceBlock =
 
 export type ServiceFact = { title: string; subtitle: string };
 
+export type SeoMeta = {
+  seoTitle?: string;
+  metaDescription?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  canonical?: string;
+};
+
 export type Service = {
   kind: ServiceKind;
   slug: string;
@@ -25,6 +34,8 @@ export type Service = {
   leadIntro?: string;
   /** Short hero facts (e.g. "длительность · от 2 до 8 часов"). */
   leadFacts: ServiceFact[];
+  seo: SeoMeta;
+  sourceUrl?: string;
 };
 
 type RawServiceEntry = {
@@ -43,6 +54,7 @@ type RawServiceEntry = {
   image?: string;
   leadIntro?: string;
   leadFacts?: ServiceFact[];
+  seo?: SeoMeta;
 };
 
 /** Canonical 4-step process used across all services on the source site.
@@ -158,6 +170,8 @@ function adapt(raw: RawServiceEntry): Service {
     image: raw.image || images[0],
     leadIntro: raw.leadIntro?.trim() || undefined,
     leadFacts,
+    seo: raw.seo || {},
+    sourceUrl: raw.sourceUrl,
   };
 }
 

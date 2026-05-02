@@ -33,7 +33,7 @@ export default function PortfolioPage() {
           }}
         >
           <div className="container-page pt-24 sm:pt-36 lg:pt-48 pb-10 sm:pb-16 lg:pb-20">
-            <h1 className="font-heading text-[44px] sm:text-[80px] md:text-[112px] lg:text-[140px] leading-[0.95] tracking-[-0.03em] text-white">
+            <h1 className="font-heading text-[52px] sm:text-[88px] md:text-[120px] lg:text-[160px] leading-[0.92] tracking-[-0.03em] text-white">
               Портфолио
             </h1>
           </div>

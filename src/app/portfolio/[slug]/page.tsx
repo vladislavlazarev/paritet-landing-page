@@ -49,20 +49,20 @@ export async function generateMetadata(
 function BlockView({ block }: { block: PortfolioBlock }) {
   if (block.kind === "heading") {
     return (
-      <h2 className="font-heading text-[22px] sm:text-[28px] lg:text-[32px] leading-[1.15] tracking-[-0.02em] text-brand mt-8 sm:mt-12">
+      <h2 className="font-heading text-[22px] sm:text-[30px] lg:text-[36px] leading-[1.15] tracking-[-0.02em] text-brand mt-8 sm:mt-12">
         {block.text}
       </h2>
     );
   }
   if (block.kind === "paragraph" || block.kind === "lead") {
     return (
-      <p className="text-[16px] sm:text-[17px] leading-relaxed text-ink">
+      <p className="text-[15px] sm:text-[17px] leading-relaxed text-ink">
         {block.text}
       </p>
     );
   }
   return (
-    <ul className="space-y-2 text-[16px] sm:text-[17px] leading-relaxed text-ink">
+    <ul className="space-y-2 text-[15px] sm:text-[17px] leading-relaxed text-ink">
       {block.items.map((it, j) => (
         <li key={j} className="flex gap-3">
           <span aria-hidden className="text-accent-coral mt-2 inline-block h-1.5 w-1.5 rounded-full shrink-0" />
@@ -184,10 +184,10 @@ export default async function PortfolioEventPage(
                 </svg>
               </Link>
               <div>
-                <p className="text-[12px] sm:text-[13px] tracking-[0.22em] uppercase text-white/55">
+                <p className="text-[12px] sm:text-[13px] tracking-[0.28em] uppercase text-white/55">
                   {CATEGORY_LABEL[event.category]}
                 </p>
-                <h1 className="mt-3 font-heading text-[28px] sm:text-[40px] md:text-[56px] lg:text-[72px] leading-[1.05] tracking-[-0.025em] text-white">
+                <h1 className="mt-3 font-heading text-[32px] sm:text-[44px] md:text-[56px] lg:text-[72px] leading-[1.05] tracking-[-0.025em] text-white">
                   {event.title}
                 </h1>
               </div>
@@ -286,7 +286,7 @@ export default async function PortfolioEventPage(
                   <p className="text-[14px] text-white/60">
                     Следующее мероприятие
                   </p>
-                  <p className="mt-2 font-heading text-[20px] sm:text-[28px] lg:text-[32px] leading-[1.15] tracking-[-0.02em] text-white max-w-[560px]">
+                  <p className="mt-2 font-heading text-[22px] sm:text-[30px] lg:text-[36px] leading-[1.15] tracking-[-0.02em] text-white max-w-[560px]">
                     {next.title}
                   </p>
                 </div>

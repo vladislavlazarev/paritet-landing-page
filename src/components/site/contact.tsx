@@ -23,7 +23,7 @@ export function Contact() {
               Начнём планировать?
             </h2>
             <p className="mt-5 sm:mt-7 text-[15px] sm:text-[16px] leading-relaxed text-white/80 max-w-lg">
-              Напишите нам в WhatsApp или Telegram, или просто позвоните:
+              Позвоните нам или напишите в&nbsp;Telegram:
             </p>
 
             <div className="mt-8 sm:mt-10 space-y-2 sm:space-y-3">
@@ -43,13 +43,11 @@ export function Contact() {
 
             <div className="mt-8 sm:mt-10 flex flex-wrap gap-3">
               <a
-                href="https://wa.me/79214102121"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="tel:+79214102121"
                 className="inline-flex h-11 items-center gap-2 rounded-full bg-white/10 hover:bg-white/15 transition-colors px-5 text-[14px] font-medium text-white"
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.4A10 10 0 1 0 12 2zm5.5 14.3c-.2.6-1.3 1.2-1.8 1.2s-1.7.5-3.8-.8a11 11 0 0 1-4.4-4.7c-.4-.7-.7-1.6-.7-2.4 0-.8.4-1.2.6-1.4.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.5c-.1.2-.3.3-.1.6.5.9 1.2 1.7 2 2.4.7.5 1.3.7 1.5.8.2.1.4.1.5-.1l.6-.8c.2-.2.3-.2.5-.1l1.9.9c.2.1.4.2.4.4z" /></svg>
-                WhatsApp
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.5 0 1 .4 1 1V20c0 .5-.5 1-1 1-9.4 0-17-7.6-17-17 0-.5.5-1 1-1h3.4c.6 0 1 .5 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1z" /></svg>
+                Позвонить
               </a>
               <a
                 href="https://t.me/paritetevents"

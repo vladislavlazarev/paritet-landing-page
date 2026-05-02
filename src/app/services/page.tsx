@@ -48,7 +48,7 @@ export default function ServicesPage() {
             <p className="text-[12px] sm:text-[13px] tracking-[0.28em] uppercase text-white/55">
               Что мы делаем
             </p>
-            <h1 className="mt-5 sm:mt-6 font-heading text-[44px] sm:text-[72px] md:text-[100px] lg:text-[120px] leading-[0.95] tracking-[-0.03em] text-white">
+            <h1 className="mt-5 sm:mt-6 font-heading text-[52px] sm:text-[88px] md:text-[120px] lg:text-[160px] leading-[0.92] tracking-[-0.03em] text-white">
               Услуги
             </h1>
             <p className="mt-7 sm:mt-9 lg:mt-10 max-w-2xl text-[15px] sm:text-[16px] lg:text-[17px] leading-relaxed text-white/85">

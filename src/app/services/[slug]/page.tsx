@@ -204,35 +204,33 @@ export default async function ServiceDetailPage(
               {!isCategory && categoryTitle && (
                 <Link
                   href={`/services/${svc.category}`}
-                  className="inline-block text-[11px] sm:text-[12px] tracking-[0.28em] uppercase text-white/65 hover:text-accent-coral transition-colors mb-4 sm:mb-5"
+                  className="inline-block text-[12px] sm:text-[13px] tracking-[0.28em] uppercase text-white/65 hover:text-accent-coral transition-colors mb-4 sm:mb-5"
                 >
                   ← {categoryTitle}
                 </Link>
               )}
               {isCategory && (
-                <span className="inline-block text-[11px] sm:text-[12px] tracking-[0.28em] uppercase text-white/55 mb-4 sm:mb-5">
+                <span className="inline-block text-[12px] sm:text-[13px] tracking-[0.28em] uppercase text-white/55 mb-4 sm:mb-5">
                   Услуги
                 </span>
               )}
 
-              <h1 className="font-heading text-[30px] sm:text-[40px] md:text-[50px] lg:text-[62px] xl:text-[72px] leading-[1.04] tracking-[-0.02em] text-white">
+              <h1 className="font-heading text-[32px] sm:text-[44px] md:text-[56px] lg:text-[72px] leading-[1.05] tracking-[-0.025em] text-white">
                 {svc.title}
               </h1>
 
               {(svc.leadIntro || svc.description) && (
-                <p className="mt-4 sm:mt-5 max-w-3xl text-[14px] sm:text-[15px] lg:text-[16px] leading-relaxed text-white/85">
+                <p className="mt-4 sm:mt-5 max-w-3xl text-[15px] sm:text-[16px] lg:text-[17px] leading-relaxed text-white/85">
                   {svc.leadIntro || svc.description}
                 </p>
               )}
 
               <div className="mt-6 sm:mt-7 flex flex-wrap items-center gap-3">
                 <a
-                  href="https://wa.me/79214102121"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="tel:+79214102121"
                   className="inline-flex h-11 sm:h-12 items-center gap-2 rounded-full bg-accent-coral px-5 sm:px-6 text-[14px] font-semibold text-white hover:bg-accent-coral-strong transition-colors"
                 >
-                  Написать в WhatsApp
+                  Позвонить
                   <svg
                     width="16"
                     height="16"
@@ -305,7 +303,7 @@ export default async function ServiceDetailPage(
                             <p className="text-[11px] sm:text-[12px] tracking-[0.28em] uppercase text-muted-fg">
                               Этапы работы
                             </p>
-                            <h2 className="mt-4 font-heading text-[24px] sm:text-[36px] md:text-[48px] leading-[1.08] tracking-[-0.025em] text-ink">
+                            <h2 className="mt-4 font-heading text-[28px] sm:text-[40px] md:text-[52px] leading-[1.05] tracking-[-0.025em] text-ink">
                               {g.title}
                             </h2>
                           </div>
@@ -337,7 +335,7 @@ export default async function ServiceDetailPage(
                   return (
                     <div key={idx} className="max-w-[920px] mx-auto w-full">
                       {g.heading && (
-                        <h2 className="font-heading text-[26px] sm:text-[34px] lg:text-[40px] leading-[1.1] tracking-[-0.025em] text-ink">
+                        <h2 className="font-heading text-[22px] sm:text-[30px] lg:text-[36px] leading-[1.15] tracking-[-0.02em] text-ink">
                           {g.heading}
                         </h2>
                       )}
@@ -365,7 +363,7 @@ export default async function ServiceDetailPage(
                   <p className="text-[11px] sm:text-[12px] tracking-[0.28em] uppercase text-muted-fg">
                     Форматы
                   </p>
-                  <h2 className="mt-4 font-heading text-[32px] sm:text-[44px] md:text-[52px] leading-[1.08] sm:leading-[1.04] tracking-[-0.025em] text-ink">
+                  <h2 className="mt-4 font-heading text-[28px] sm:text-[40px] md:text-[52px] leading-[1.05] tracking-[-0.025em] text-ink">
                     Что входит в&nbsp;категорию
                   </h2>
                 </div>
@@ -398,7 +396,7 @@ export default async function ServiceDetailPage(
                         )}
                       </div>
                       <div className="px-6 sm:px-7 py-5 sm:py-6">
-                        <h3 className="text-[17px] sm:text-[19px] leading-snug text-ink">
+                        <h3 className="text-[18px] sm:text-[20px] leading-snug text-ink">
                           {s.title}
                         </h3>
                         <div className="mt-5 flex items-center justify-end text-[13px]">
@@ -429,7 +427,7 @@ export default async function ServiceDetailPage(
                 <p className="text-[11px] sm:text-[12px] tracking-[0.28em] uppercase text-white/55">
                   Фотографии
                 </p>
-                <h2 className="mt-4 font-heading text-[32px] sm:text-[44px] md:text-[52px] leading-[1.08] sm:leading-[1.03] tracking-[-0.025em] text-white">
+                <h2 className="mt-4 font-heading text-[28px] sm:text-[40px] md:text-[52px] leading-[1.05] tracking-[-0.025em] text-white">
                   Как это выглядит вживую
                 </h2>
               </div>
@@ -447,7 +445,7 @@ export default async function ServiceDetailPage(
                   <p className="text-[11px] sm:text-[12px] tracking-[0.28em] uppercase text-muted-fg">
                     Реализованные проекты
                   </p>
-                  <h2 className="mt-4 font-heading text-[32px] sm:text-[44px] md:text-[52px] leading-[1.08] sm:leading-[1.03] tracking-[-0.025em] text-ink">
+                  <h2 className="mt-4 font-heading text-[28px] sm:text-[40px] md:text-[52px] leading-[1.05] tracking-[-0.025em] text-ink">
                     Как это было
                   </h2>
                 </div>
@@ -527,11 +525,11 @@ export default async function ServiceDetailPage(
               />
 
               <div className="relative max-w-3xl">
-                <h2 className="font-heading text-[28px] sm:text-[44px] md:text-[64px] leading-[1.08] sm:leading-[1.02] tracking-[-0.025em]">
+                <h2 className="font-heading text-[32px] sm:text-[48px] md:text-[64px] leading-[1.04] tracking-[-0.025em]">
                   Начнём планировать?
                 </h2>
                 <p className="mt-5 sm:mt-7 text-[15px] sm:text-[16px] leading-relaxed text-white/80 max-w-lg">
-                  Напишите нам в WhatsApp или Telegram, или просто позвоните:
+                  Позвоните нам или напишите в&nbsp;Telegram:
                 </p>
 
                 <div className="mt-8 sm:mt-10 space-y-2 sm:space-y-3">
@@ -551,9 +549,7 @@ export default async function ServiceDetailPage(
 
                 <div className="mt-8 sm:mt-10 flex flex-wrap gap-3">
                   <a
-                    href="https://wa.me/79214102121"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="tel:+79214102121"
                     className="inline-flex h-11 items-center gap-2 rounded-full bg-white/10 hover:bg-white/15 transition-colors px-5 text-[14px] font-medium text-white"
                   >
                     <svg
@@ -562,9 +558,9 @@ export default async function ServiceDetailPage(
                       viewBox="0 0 24 24"
                       fill="currentColor"
                     >
-                      <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.4A10 10 0 1 0 12 2zm5.5 14.3c-.2.6-1.3 1.2-1.8 1.2s-1.7.5-3.8-.8a11 11 0 0 1-4.4-4.7c-.4-.7-.7-1.6-.7-2.4 0-.8.4-1.2.6-1.4.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.5c-.1.2-.3.3-.1.6.5.9 1.2 1.7 2 2.4.7.5 1.3.7 1.5.8.2.1.4.1.5-.1l.6-.8c.2-.2.3-.2.5-.1l1.9.9c.2.1.4.2.4.4z" />
+                      <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.5 0 1 .4 1 1V20c0 .5-.5 1-1 1-9.4 0-17-7.6-17-17 0-.5.5-1 1-1h3.4c.6 0 1 .5 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1z" />
                     </svg>
-                    WhatsApp
+                    Позвонить
                   </a>
                   <a
                     href="https://t.me/paritetevents"

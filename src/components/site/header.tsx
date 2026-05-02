@@ -146,13 +146,12 @@ export function Header({ theme = "transparent", active }: HeaderProps) {
 
             <div className="mt-8 flex flex-wrap gap-3">
               <a
-                href="https://wa.me/79214102121"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="tel:+79214102121"
                 onClick={() => setOpen(false)}
-                className="inline-flex h-12 items-center gap-2 rounded-full bg-accent-coral px-5 text-[14px] font-semibold text-white"
+                className="inline-flex h-12 items-center gap-2 rounded-full bg-accent-coral px-5 text-[14px] font-semibold text-white hover:bg-accent-coral-strong transition-colors"
               >
-                WhatsApp
+                Позвонить
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </a>
               <a
                 href="tel:+79214102121"

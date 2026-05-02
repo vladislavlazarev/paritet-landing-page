@@ -62,6 +62,22 @@ export type PortfolioBlock =
   | { kind: "heading"; text: string }
   | { kind: "list"; label?: string; items: string[] };
 
+export type SeoMeta = {
+  /** Original <title> from the source page (search-result title). */
+  seoTitle?: string;
+  /** Original <meta name="description">. */
+  metaDescription?: string;
+  /** Original og:title — usually richer than the page title. */
+  ogTitle?: string;
+  /** Original og:description. */
+  ogDescription?: string;
+  /** Original og:image absolute URL on the source. Image is also mirrored
+   *  locally — see PortfolioEvent.coverImage. */
+  ogImage?: string;
+  /** Original canonical URL on the source — only useful as a sanity check. */
+  canonical?: string;
+};
+
 export type PortfolioEvent = {
   slug: string;
   title: string;
@@ -74,6 +90,9 @@ export type PortfolioEvent = {
   body: PortfolioBlock[];
   images: string[];
   galleryCount: number;
+  seo: SeoMeta;
+  /** Source URL on the original WP site — used to build redirects. */
+  sourceUrl?: string;
 };
 
 type RawPortfolioEntry = {
@@ -90,6 +109,7 @@ type RawPortfolioEntry = {
   >;
   images?: string[];
   image?: string;
+  seo?: SeoMeta;
 };
 
 function tidyBlocks(
@@ -129,6 +149,8 @@ function toEvent(raw: RawPortfolioEntry): PortfolioEvent {
     body: tidyBlocks(raw.body),
     images,
     galleryCount: images.length,
+    seo: raw.seo || {},
+    sourceUrl: raw.sourceUrl,
   };
 }
 

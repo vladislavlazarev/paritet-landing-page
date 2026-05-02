@@ -5,7 +5,7 @@ import { Footer } from "@/components/site/footer";
 export const metadata: Metadata = {
   title: "Контакты — Паритет Events",
   description:
-    "Контакты Paritet Events: Санкт-Петербург, Невский проспект, 109. Телефоны, email, WhatsApp и Telegram.",
+    "Контакты Paritet Events: Санкт-Петербург, Невский проспект, 109. Телефоны, email и Telegram.",
 };
 
 const MAP_SRC =
@@ -92,15 +92,13 @@ export default function ContactsPage() {
 
                 <div className="mt-9 sm:mt-12 flex flex-wrap items-center gap-3">
                   <a
-                    href="https://wa.me/79214102121"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="tel:+79214102121"
                     className="inline-flex h-12 items-center gap-2.5 rounded-full bg-accent-coral px-5 text-[15px] font-medium text-white hover:bg-accent-coral-strong transition-colors"
                   >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-                      <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.4A10 10 0 1 0 12 2zm5.5 14.3c-.2.6-1.3 1.2-1.8 1.2s-1.7.5-3.8-.8a11 11 0 0 1-4.4-4.7c-.4-.7-.7-1.6-.7-2.4 0-.8.4-1.2.6-1.4.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.5c-.1.2-.3.3-.1.6.5.9 1.2 1.7 2 2.4.7.5 1.3.7 1.5.8.2.1.4.1.5-.1l.6-.8c.2-.2.3-.2.5-.1l1.9.9c.2.1.4.2.4.4z" />
+                    Позвонить
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+                      <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
-                    WhatsApp
                   </a>
                   <a
                     href="https://t.me/paritetevents"

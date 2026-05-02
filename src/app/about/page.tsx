@@ -93,7 +93,7 @@ export default function AboutPage() {
             <p className="text-[12px] sm:text-[13px] tracking-[0.28em] uppercase text-white/55">
               Паритет Events
             </p>
-            <h1 className="mt-5 sm:mt-6 font-heading text-[56px] sm:text-[88px] md:text-[120px] lg:text-[160px] leading-[0.92] tracking-[-0.03em] text-white">
+            <h1 className="mt-5 sm:mt-6 font-heading text-[52px] sm:text-[88px] md:text-[120px] lg:text-[160px] leading-[0.92] tracking-[-0.03em] text-white">
               О&nbsp;нас
             </h1>
             <p className="mt-7 sm:mt-9 lg:mt-10 max-w-2xl text-[15px] sm:text-[16px] lg:text-[17px] leading-relaxed text-white/85">
@@ -110,7 +110,7 @@ export default function AboutPage() {
           <div className="container-page py-16 sm:py-24 lg:py-28">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
               <div className="lg:col-span-7">
-                <h2 className="font-heading text-[26px] sm:text-[36px] lg:text-[44px] leading-[1.1] tracking-[-0.025em] text-brand">
+                <h2 className="font-heading text-[28px] sm:text-[40px] md:text-[52px] leading-[1.05] tracking-[-0.025em] text-brand">
                   Лидеры event-индустрии
                   <br /> Санкт-Петербурга
                 </h2>
@@ -170,7 +170,7 @@ export default function AboutPage() {
               <p className="text-[11px] sm:text-[12px] tracking-[0.28em] uppercase text-white/50">
                 Промо-ролик
               </p>
-              <h2 className="mt-4 font-heading text-[26px] sm:text-[40px] md:text-[52px] leading-[1.05] tracking-[-0.025em]">
+              <h2 className="mt-4 font-heading text-[28px] sm:text-[40px] md:text-[52px] leading-[1.05] tracking-[-0.025em]">
                 Паритет Events в&nbsp;движении
               </h2>
             </div>
@@ -183,7 +183,7 @@ export default function AboutPage() {
           <div className="container-page py-16 sm:py-24 lg:py-28">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-12 sm:mb-16">
               <div className="lg:col-span-5">
-                <h2 className="font-heading text-[32px] sm:text-[52px] md:text-[64px] leading-[1.04] tracking-[-0.025em]">
+                <h2 className="font-heading text-[32px] sm:text-[48px] md:text-[64px] leading-[1.04] tracking-[-0.025em]">
                   Познакомимся?
                 </h2>
               </div>
@@ -216,7 +216,7 @@ export default function AboutPage() {
                     />
                   </div>
                   <div className="mt-4 sm:mt-5">
-                    <h3 className="font-heading text-[20px] sm:text-[24px] lg:text-[26px] tracking-[-0.01em]">
+                    <h3 className="font-heading text-[20px] sm:text-[24px] tracking-[-0.01em]">
                       {p.name}
                     </h3>
                     <p className="mt-1 text-[13px] sm:text-[14px] text-white/65">
@@ -236,7 +236,7 @@ export default function AboutPage() {
               <p className="text-[11px] sm:text-[12px] tracking-[0.28em] uppercase text-white/50">
                 Доверяют нам
               </p>
-              <h2 className="mt-4 font-heading text-[26px] sm:text-[40px] md:text-[52px] leading-[1.05] tracking-[-0.025em]">
+              <h2 className="mt-4 font-heading text-[28px] sm:text-[40px] md:text-[52px] leading-[1.05] tracking-[-0.025em]">
                 Партнёры и&nbsp;друзья
                 <br /> мировых брендов
               </h2>
@@ -294,7 +294,7 @@ export default function AboutPage() {
                   <p className="text-[11px] sm:text-[12px] tracking-[0.28em] uppercase text-white/55">
                     Начнём планировать?
                   </p>
-                  <h2 className="mt-4 font-heading text-[26px] sm:text-[40px] md:text-[56px] leading-[1.05] tracking-[-0.025em]">
+                  <h2 className="mt-4 font-heading text-[32px] sm:text-[48px] md:text-[64px] leading-[1.04] tracking-[-0.025em]">
                     Расскажите о&nbsp;вашем празднике
                   </h2>
                   <p className="mt-5 sm:mt-6 text-[15px] sm:text-[16px] leading-relaxed text-white/80 max-w-xl">
@@ -306,13 +306,13 @@ export default function AboutPage() {
                   <div className="space-y-1.5 sm:space-y-2">
                     <a
                       href="tel:+79214102121"
-                      className="block font-heading text-[22px] sm:text-[32px] md:text-[40px] leading-none tracking-[-0.02em] hover:text-accent-coral transition-colors"
+                      className="block font-heading text-[24px] sm:text-[40px] md:text-[52px] leading-none tracking-[-0.02em] hover:text-accent-coral transition-colors"
                     >
                       +7 (921) 410-21-21
                     </a>
                     <a
                       href="tel:+79219519282"
-                      className="block font-heading text-[22px] sm:text-[32px] md:text-[40px] leading-none tracking-[-0.02em] hover:text-accent-coral transition-colors"
+                      className="block font-heading text-[24px] sm:text-[40px] md:text-[52px] leading-none tracking-[-0.02em] hover:text-accent-coral transition-colors"
                     >
                       +7 (921) 951-92-82
                     </a>
@@ -320,12 +320,11 @@ export default function AboutPage() {
 
                   <div className="mt-6 sm:mt-7 flex flex-wrap gap-3">
                     <a
-                      href="https://wa.me/79214102121"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="tel:+79214102121"
                       className="inline-flex h-11 items-center gap-2 rounded-full bg-accent-coral hover:bg-accent-coral-strong transition-colors px-5 text-[14px] font-semibold text-white"
                     >
-                      WhatsApp →
+                      Позвонить
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" /></svg>
                     </a>
                     <a
                       href="https://t.me/paritetevents"
