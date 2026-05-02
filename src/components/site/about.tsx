@@ -128,10 +128,10 @@ export function About() {
                   </span>
 
                   <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 lg:p-6 text-white">
-                    <p className="text-[9px] sm:text-[10px] tracking-[0.2em] sm:tracking-[0.22em] uppercase opacity-85">
+                    <p className="hidden sm:block text-[9px] sm:text-[10px] tracking-[0.2em] sm:tracking-[0.22em] uppercase opacity-85">
                       {c.caption}
                     </p>
-                    <h4 className="mt-1.5 sm:mt-2 font-heading text-[16px] sm:text-[20px] lg:text-[22px] leading-tight">
+                    <h4 className="sm:mt-2 font-heading text-[16px] sm:text-[20px] lg:text-[22px] leading-tight">
                       {c.title}
                     </h4>
                   </div>

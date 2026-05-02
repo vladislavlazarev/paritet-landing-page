@@ -35,6 +35,7 @@ export function Events() {
           controlsTone="dark"
           bleed="bleed-right"
           itemClassName="w-[80vw] sm:w-[44vw] lg:w-[28vw] max-w-[420px]"
+          persistKey="home-events"
         >
           {events.map((e) => (
             <Link

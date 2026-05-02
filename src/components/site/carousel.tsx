@@ -15,6 +15,12 @@ type Props = {
    *   Controls below stay aligned with the container's right edge.
    */
   bleed?: "container" | "bleed-right";
+  /**
+   * When set, the track's horizontal scrollLeft is persisted in sessionStorage
+   * so the slider keeps its position when the user navigates away and back.
+   * Use a stable, page-scoped key (e.g. "home-events", "home-testimonials").
+   */
+  persistKey?: string;
 };
 
 export function Carousel({
@@ -24,6 +30,7 @@ export function Carousel({
   showCount = false,
   controlsTone = "light",
   bleed = "container",
+  persistKey,
 }: Props) {
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [active, setActive] = useState(0);
@@ -33,7 +40,13 @@ export function Carousel({
     const track = trackRef.current;
     if (!track) return;
     setCount(track.children.length);
-  }, [children]);
+    if (persistKey && typeof window !== "undefined") {
+      const saved = sessionStorage.getItem(`carousel:${persistKey}`);
+      if (saved !== null) {
+        track.scrollLeft = Number(saved);
+      }
+    }
+  }, [children, persistKey]);
 
   const scrollTo = useCallback((idx: number) => {
     const track = trackRef.current;
@@ -58,7 +71,10 @@ export function Carousel({
       }
     });
     setActive(best);
-  }, []);
+    if (persistKey && typeof window !== "undefined") {
+      sessionStorage.setItem(`carousel:${persistKey}`, String(left));
+    }
+  }, [persistKey]);
 
   const prev = () => scrollTo(Math.max(0, active - 1));
   const next = () => scrollTo(Math.min(count - 1, active + 1));

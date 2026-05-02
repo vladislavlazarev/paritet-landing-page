@@ -52,6 +52,7 @@ export function Testimonials({
           showCount
           bleed="bleed-right"
           itemClassName="w-[88vw] sm:w-[64vw] lg:w-[42vw] max-w-[560px]"
+          persistKey="home-testimonials"
         >
           {reviews.map((r) => (
             <article
