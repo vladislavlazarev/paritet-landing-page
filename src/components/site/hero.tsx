@@ -9,6 +9,7 @@ export function Hero() {
         playsInline
         preload="metadata"
         poster="/hero-poster.jpg"
+        aria-label="Show-reel Паритет Events: организация мероприятий в Санкт-Петербурге"
       >
         {/* Drop a show-reel into /public/videos/showreel.mp4 (or .webm) */}
         <source src="/videos/showreel.mp4" type="video/mp4" />
@@ -26,16 +27,29 @@ export function Hero() {
 
       <div className="container-page pb-8 sm:pb-10 lg:pb-14">
         <div className="max-w-3xl">
-          <h1 className="font-heading text-[36px] sm:text-[56px] md:text-[64px] lg:text-[84px] leading-[1.05] sm:leading-[1.02] tracking-[-0.025em] text-white">
+          {/*
+            SEO-семантика и визуальный дизайн разнесены:
+            • <h1> — keyword-богатый заголовок страницы для поисковиков и
+              скринридеров; визуально скрыт через sr-only.
+            • Большой поэтичный заголовок ниже — визуальный <h2>, чтобы
+              сохранить голос бренда без потери видимости в SERP.
+          */}
+          <h1 className="sr-only">
+            Организация мероприятий в Санкт-Петербурге: корпоративы,
+            тимбилдинги, концерты и новогодние корпоративы — Паритет Events
+          </h1>
+          <h2 className="font-heading text-[36px] sm:text-[56px] md:text-[64px] lg:text-[84px] leading-[1.05] sm:leading-[1.02] tracking-[-0.025em] text-white">
             Профессионально
             <br />
             <span className="text-white/85">об искусстве</span>
             <br />
             мероприятий
-          </h1>
+          </h2>
           <p className="mt-5 sm:mt-7 max-w-xl text-[15px] sm:text-[16px] leading-relaxed text-white/75">
-            Уже более 20 лет создаём уникальные события для частных клиентов
-            и компаний с мировым именем — от камерных праздников до фестивалей
+            Организуем корпоративы, тимбилдинги, концерты и новогодние
+            корпоративы в Санкт-Петербурге и Ленинградской области под ключ.
+            Более 20 лет создаём события для частных клиентов и компаний
+            с мировым именем — от камерных праздников до фестивалей
             на тысячи гостей.
           </p>
           <div className="mt-7 sm:mt-9">

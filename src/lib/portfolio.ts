@@ -167,6 +167,32 @@ export function getNextPortfolio(slug: string): PortfolioEvent {
   return PORTFOLIO[(i + 1) % PORTFOLIO.length];
 }
 
+/**
+ * Map a portfolio category enum back to the matching service-category slug
+ * used on /services/<slug>. Useful for cross-linking case → service.
+ */
+export const PORTFOLIO_TO_SERVICE_CATEGORY: Record<PortfolioCategory, string> = {
+  corporate: "korporativnye-meroprijatija",
+  concerts: "kontserty",
+  teambuilding: "timbilding",
+  private: "chastnye-meropriyatiya",
+  business: "delovye-meropriyatiya",
+  holidays: "korporativnye-meroprijatija",
+};
+
+/**
+ * Returns up to `limit` related cases that share the category but are NOT the
+ * current case. Used in /portfolio/[slug] for the "похожие проекты" block.
+ */
+export function getRelatedPortfolio(
+  slug: string,
+  category: PortfolioCategory,
+  limit = 4,
+): PortfolioEvent[] {
+  return PORTFOLIO.filter((e) => e.slug !== slug && e.category === category)
+    .slice(0, limit);
+}
+
 export function getPortfolioByCategory(
   category: PortfolioCategory,
   limit?: number,

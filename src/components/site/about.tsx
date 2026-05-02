@@ -64,12 +64,40 @@ export function About() {
             <h3 className="font-heading text-[26px] sm:text-[36px] md:text-[44px] lg:text-[52px] leading-[1.1] sm:leading-[1.05] tracking-[-0.025em] text-brand">
               <span className="sm:whitespace-nowrap">«Паритет Events» —</span>
               <br /> организация праздников
+              <br /> в Санкт-Петербурге
             </h3>
             <p className="mt-5 sm:mt-6 text-[15px] sm:text-[16px] leading-relaxed text-body max-w-md">
-              Уже более 20 лет нашу команду объединяет стремление дарить людям
-              радость. За годы работы мы разработали сотни концепций и
-              авторских форматов для частных клиентов и компаний с мировым
-              именем.
+              Уже более 20 лет наша команда создаёт{" "}
+              <Link
+                href="/services/korporativnye-meroprijatija"
+                className="text-brand underline underline-offset-4 hover:text-accent-coral"
+              >
+                корпоративные мероприятия
+              </Link>
+              ,{" "}
+              <Link
+                href="/services/timbilding"
+                className="text-brand underline underline-offset-4 hover:text-accent-coral"
+              >
+                тимбилдинги
+              </Link>
+              ,{" "}
+              <Link
+                href="/services/kontserty"
+                className="text-brand underline underline-offset-4 hover:text-accent-coral"
+              >
+                концерты
+              </Link>{" "}
+              и{" "}
+              <Link
+                href="/services/korporativnyj-novyj-god"
+                className="text-brand underline underline-offset-4 hover:text-accent-coral"
+              >
+                новогодние корпоративы
+              </Link>{" "}
+              в Санкт-Петербурге и Ленинградской области. За эти годы мы
+              разработали сотни концепций и авторских форматов для частных
+              клиентов и компаний с мировым именем.
             </p>
 
             <div className="mt-6 sm:mt-7 flex flex-wrap items-center gap-3">

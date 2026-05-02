@@ -184,6 +184,28 @@ export const SERVICE_CATEGORIES: { slug: string; title: string }[] = [
   { slug: "uslugi-onlajn", title: "Услуги онлайн" },
 ];
 
+/**
+ * SEO-оптимизированный H1 для категорий услуг. На странице остаётся короткий
+ * визуальный заголовок (поэтика бренда), но в SSR HTML рендерится этот.
+ * Использовать как `<h1>` на /services/<slug>.
+ */
+const CATEGORY_H1: Record<string, string> = {
+  "korporativnye-meroprijatija":
+    "Организация корпоративных мероприятий в Санкт-Петербурге",
+  timbilding:
+    "Организация тимбилдингов для сотрудников в Санкт-Петербурге",
+  kontserty: "Организация концертов в Санкт-Петербурге",
+  "chastnye-meropriyatiya":
+    "Организация частных мероприятий и торжеств в СПб",
+  "delovye-meropriyatiya":
+    "Организация деловых мероприятий в Санкт-Петербурге",
+  "uslugi-onlajn": "Онлайн-мероприятия для команд и компаний",
+};
+
+export function getCategoryH1(slug: string): string | null {
+  return CATEGORY_H1[slug] || null;
+}
+
 const CATEGORY_VISUALS: Record<string, { emoji: string; gradient: string }> = {
   "korporativnye-meroprijatija": {
     emoji: "🥂",

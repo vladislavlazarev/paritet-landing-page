@@ -6,16 +6,26 @@ export function Services() {
   return (
     <section id="services" className="relative bg-white text-ink">
       <div className="container-page py-16 sm:py-24 lg:py-32">
-        <div className="max-w-2xl mb-10 sm:mb-14">
+        <div className="max-w-3xl mb-10 sm:mb-14">
           <h2 className="font-heading text-[28px] sm:text-[40px] md:text-[56px] leading-[1.08] sm:leading-[1.04] tracking-[-0.025em] text-ink">
-            Услуги
+            Услуги: организация мероприятий в&nbsp;Санкт-Петербурге
           </h2>
           <p className="mt-5 sm:mt-6 text-[15px] sm:text-[16px] leading-relaxed text-body">
-            Для Вашего удобства мы создали данный раздел, где можно
-            ознакомиться с форматами мероприятий и перечнем оказываемых услуг.
-            Событие не должно вписываться в существующие рамки — вместе мы
-            можем создать новый неповторимый формат исходя из Ваших задач
-            и пожеланий.
+            Шесть направлений, в&nbsp;которых мы&nbsp;работаем под&nbsp;ключ:
+            корпоративные мероприятия и&nbsp;юбилеи, выездные тимбилдинги
+            и&nbsp;командные программы, концерты и&nbsp;шоу-программы, частные
+            торжества, деловые форматы и&nbsp;онлайн-мероприятия.
+            Сезон{" "}
+            <Link
+              href="/services/korporativnyj-novyj-god"
+              className="text-brand underline underline-offset-4 hover:text-accent-coral"
+            >
+              новогодних корпоративов 2026
+            </Link>{" "}
+            открыт — лучшие площадки в&nbsp;центре Петербурга и&nbsp;за&nbsp;городом
+            фиксируются с&nbsp;октября. Событие не&nbsp;должно вписываться
+            в&nbsp;существующие рамки — вместе мы&nbsp;соберём формат под&nbsp;ваши
+            задачи и&nbsp;бюджет.
           </p>
         </div>
 

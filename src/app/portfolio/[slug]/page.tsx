@@ -7,15 +7,18 @@ import { Footer } from "@/components/site/footer";
 import {
   CATEGORY_LABEL,
   PORTFOLIO,
+  PORTFOLIO_TO_SERVICE_CATEGORY,
   type PortfolioBlock,
   getNextPortfolio,
   getPortfolioBySlug,
+  getRelatedPortfolio,
 } from "@/lib/portfolio";
 import {
   buildMeta,
   articleJsonLd,
   breadcrumbJsonLd,
 } from "@/lib/seo";
+import { getCategoryH1, SERVICE_CATEGORIES } from "@/lib/services";
 
 export function generateStaticParams() {
   return PORTFOLIO.map((e) => ({ slug: e.slug }));
@@ -56,13 +59,13 @@ function BlockView({ block }: { block: PortfolioBlock }) {
   }
   if (block.kind === "paragraph" || block.kind === "lead") {
     return (
-      <p className="text-[15px] sm:text-[17px] leading-relaxed text-ink">
+      <p className="text-[15px] sm:text-[17px] leading-relaxed text-body">
         {block.text}
       </p>
     );
   }
   return (
-    <ul className="space-y-2 text-[15px] sm:text-[17px] leading-relaxed text-ink">
+    <ul className="space-y-2 text-[15px] sm:text-[17px] leading-relaxed text-body">
       {block.items.map((it, j) => (
         <li key={j} className="flex gap-3">
           <span aria-hidden className="text-accent-coral mt-2 inline-block h-1.5 w-1.5 rounded-full shrink-0" />
@@ -136,6 +139,10 @@ export default async function PortfolioEventPage(
   const heroImage = event.images[0];
   const heroSmall = event.images.slice(1, 5);
   const restImages = event.images.slice(5);
+  const serviceSlug = PORTFOLIO_TO_SERVICE_CATEGORY[event.category];
+  const serviceTitle = SERVICE_CATEGORIES.find((c) => c.slug === serviceSlug)
+    ?.title;
+  const related = getRelatedPortfolio(slug, event.category, 4);
 
   const firstParagraph = event.body.find((b) => b.kind === "paragraph");
   const articleSchema = articleJsonLd({
@@ -184,9 +191,18 @@ export default async function PortfolioEventPage(
                 </svg>
               </Link>
               <div>
-                <p className="text-[12px] sm:text-[13px] tracking-[0.28em] uppercase text-white/55">
-                  {CATEGORY_LABEL[event.category]}
-                </p>
+                {serviceSlug ? (
+                  <Link
+                    href={`/services/${serviceSlug}`}
+                    className="text-[12px] sm:text-[13px] tracking-[0.28em] uppercase text-white/65 hover:text-accent-coral transition-colors"
+                  >
+                    ← {CATEGORY_LABEL[event.category]}
+                  </Link>
+                ) : (
+                  <p className="text-[12px] sm:text-[13px] tracking-[0.28em] uppercase text-white/55">
+                    {CATEGORY_LABEL[event.category]}
+                  </p>
+                )}
                 <h1 className="mt-3 font-heading text-[32px] sm:text-[44px] md:text-[56px] lg:text-[72px] leading-[1.05] tracking-[-0.025em] text-white">
                   {event.title}
                 </h1>
@@ -262,6 +278,59 @@ export default async function PortfolioEventPage(
             </div>
           )}
         </section>
+
+        {related.length > 0 && (
+          <section className="bg-surface-soft">
+            <div className="container-page py-12 sm:py-16 lg:py-20">
+              <div className="flex flex-wrap items-end justify-between gap-4 mb-8 sm:mb-10">
+                <h2 className="font-heading text-[24px] sm:text-[32px] lg:text-[40px] tracking-[-0.02em] text-ink">
+                  Похожие проекты
+                </h2>
+                {serviceSlug && serviceTitle && (
+                  <Link
+                    href={`/services/${serviceSlug}`}
+                    className="inline-flex h-12 items-center rounded-full bg-white border border-hairline px-5 text-[14px] font-medium text-ink hover:bg-surface-strong transition-colors"
+                  >
+                    Все услуги: {serviceTitle.toLowerCase()} →
+                  </Link>
+                )}
+              </div>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+                {related.map((c) => (
+                  <li key={c.slug}>
+                    <Link
+                      href={`/portfolio/${c.slug}`}
+                      className="group block bg-white rounded-[18px] overflow-hidden ring-1 ring-hairline hover:shadow-[0_12px_40px_-20px_rgba(31,26,85,0.45)] transition-shadow"
+                    >
+                      <div
+                        className="aspect-[4/3] relative overflow-hidden"
+                        style={{ background: c.cover.gradient }}
+                      >
+                        {c.coverImage && (
+                          <Image
+                            src={c.coverImage}
+                            alt={c.title}
+                            fill
+                            sizes="(min-width:1024px) 280px, (min-width:640px) 50vw, 100vw"
+                            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                          />
+                        )}
+                      </div>
+                      <div className="px-5 py-4 sm:px-6 sm:py-5">
+                        <p className="text-[12px] tracking-[0.18em] uppercase text-muted-fg">
+                          {CATEGORY_LABEL[c.category]}
+                        </p>
+                        <h3 className="mt-2 text-[16px] sm:text-[17px] leading-snug text-ink">
+                          {c.title}
+                        </h3>
+                      </div>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
 
         <section className="bg-white">
           <div className="container-page py-8 sm:py-12">

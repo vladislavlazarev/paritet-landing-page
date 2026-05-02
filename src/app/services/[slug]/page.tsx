@@ -8,13 +8,21 @@ import { Carousel } from "@/components/site/carousel";
 import {
   SERVICES,
   type ServiceBlock,
+  getCategoryH1,
   getCategoryServices,
   getCategoryVisual,
   getServiceBySlug,
   SERVICE_CATEGORIES,
 } from "@/lib/services";
 import { CATEGORY_LABEL, getPortfolioByCategory } from "@/lib/portfolio";
-import { buildMeta, breadcrumbJsonLd, serviceJsonLd } from "@/lib/seo";
+import {
+  buildMeta,
+  breadcrumbJsonLd,
+  faqJsonLd,
+  serviceJsonLd,
+} from "@/lib/seo";
+import { getFaq } from "@/data/service-faq";
+import { FaqAccordion } from "@/components/site/faq";
 
 const SERVICE_TO_PORTFOLIO_CATEGORY: Record<string, string> = {
   "korporativnye-meroprijatija": "corporate",
@@ -150,6 +158,8 @@ export default async function ServiceDetailPage(
       svc.seo?.metaDescription?.trim() || svc.description?.slice(0, 300),
     image: heroImage,
   });
+  const faq = getFaq(svc.slug);
+  const faqSchema = faq && faq.length > 0 ? faqJsonLd(faq) : null;
   const breadcrumbs = breadcrumbJsonLd([
     { name: "Главная", url: "/" },
     { name: "Услуги", url: "/services" },
@@ -173,6 +183,12 @@ export default async function ServiceDetailPage(
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
       />
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
       <Header />
       <main className="flex-1">
         {/* HERO — full-bleed image + dark overlay; targets ~100svh, grows for long content */}
@@ -216,7 +232,7 @@ export default async function ServiceDetailPage(
               )}
 
               <h1 className="font-heading text-[32px] sm:text-[44px] md:text-[56px] lg:text-[72px] leading-[1.05] tracking-[-0.025em] text-white">
-                {svc.title}
+                {isCategory ? getCategoryH1(svc.slug) || svc.title : svc.title}
               </h1>
 
               {(svc.leadIntro || svc.description) && (
@@ -432,6 +448,25 @@ export default async function ServiceDetailPage(
                 </h2>
               </div>
               <BentoGrid images={galleryImages} />
+            </div>
+          </section>
+        )}
+
+        {/* FAQ — visible block + FAQPage schema (top-5 services only) */}
+        {faq && faq.length > 0 && (
+          <section className="bg-surface-soft">
+            <div className="container-page py-14 sm:py-20 lg:py-24">
+              <div className="max-w-4xl">
+                <p className="text-[11px] sm:text-[12px] tracking-[0.28em] uppercase text-muted-fg">
+                  Часто задаваемые вопросы
+                </p>
+                <h2 className="mt-4 font-heading text-[26px] sm:text-[36px] lg:text-[44px] leading-[1.05] tracking-[-0.025em] text-ink">
+                  Что нужно знать перед заказом
+                </h2>
+                <div className="mt-8 sm:mt-10">
+                  <FaqAccordion items={faq} />
+                </div>
+              </div>
             </div>
           </section>
         )}
