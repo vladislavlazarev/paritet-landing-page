@@ -1,16 +1,24 @@
-const partners = [
-  "СПб",
-  "ЛСР",
-  "АШАН",
-  "БФА Банк",
-  "HUAWEI",
-  "MELON",
-  "IKEA",
-  "Газпром нефть",
-  "Петербургская Недвижимость",
-  "Leroy Merlin",
-  "ОБИТ",
-  "РЖД",
+import Image from "next/image";
+
+type Partner = {
+  name: string;
+  slug: string;
+  ext: "svg" | "png";
+};
+
+const partners: Partner[] = [
+  { name: "Санкт-Петербург", slug: "spb", ext: "png" },
+  { name: "ЛСР", slug: "lsr", ext: "png" },
+  { name: "АШАН", slug: "auchan", ext: "svg" },
+  { name: "БФА Банк", slug: "bfa", ext: "png" },
+  { name: "HUAWEI", slug: "huawei", ext: "svg" },
+  { name: "MELON", slug: "melon", ext: "svg" },
+  { name: "IKEA", slug: "ikea", ext: "svg" },
+  { name: "Газпром нефть", slug: "gazprom", ext: "svg" },
+  { name: "Петербургская Недвижимость", slug: "pn", ext: "svg" },
+  { name: "Leroy Merlin", slug: "leroy", ext: "svg" },
+  { name: "ОБИТ", slug: "obit", ext: "png" },
+  { name: "РЖД", slug: "rzhd", ext: "png" },
 ];
 
 export function Partners() {
@@ -45,10 +53,26 @@ export function Partners() {
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-px bg-hairline rounded-[20px] overflow-hidden ring-1 ring-hairline">
               {partners.map((p) => (
                 <div
-                  key={p}
-                  className="aspect-[4/3] flex items-center justify-center bg-white px-3 sm:px-4 text-center text-[12px] sm:text-[14px] font-semibold text-muted-fg/80 tracking-[0.04em] sm:tracking-[0.06em] uppercase transition-colors hover:text-ink hover:bg-surface-soft"
+                  key={p.slug}
+                  className="group relative aspect-[4/3] flex items-center justify-center bg-white p-6 sm:p-8"
                 >
-                  {p}
+                  <div className="relative w-[70%] h-[60%]">
+                    <Image
+                      src={`/partners/${p.slug}-gray.${p.ext}`}
+                      alt={p.name}
+                      fill
+                      sizes="(min-width: 1024px) 180px, (min-width: 640px) 30vw, 45vw"
+                      className="object-contain opacity-80 transition-opacity duration-300 group-hover:opacity-0"
+                    />
+                    <Image
+                      src={`/partners/${p.slug}-color.${p.ext}`}
+                      alt=""
+                      aria-hidden
+                      fill
+                      sizes="(min-width: 1024px) 180px, (min-width: 640px) 30vw, 45vw"
+                      className="object-contain opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                    />
+                  </div>
                 </div>
               ))}
             </div>

@@ -1,34 +1,56 @@
+import Image from "next/image";
+import Link from "next/link";
+
 type Card = {
   title: string;
   caption: string;
-  gradient: string;
+  image: string;
   emoji: string;
+  href: string;
 };
 
 const cards: Card[] = [
   {
+    title: "Корпоративные мероприятия",
+    caption: "Сцена, гости, полный зал",
+    emoji: "🎉",
+    image: "/home/about/korporativnye.webp",
+    href: "/services/korporativnye-meroprijatija",
+  },
+  {
+    title: "Концерты",
+    caption: "Сцена. Свет. Звук.",
+    emoji: "🎤",
+    image: "/home/about/kontserty.webp",
+    href: "/services/kontserty",
+  },
+  {
     title: "Тимбилдинги",
     caption: "Большой проект, лес и берёзы",
     emoji: "🌲",
-    gradient: "linear-gradient(135deg, #2d6a3e 0%, #4a8f5b 50%, #80c39a 100%)",
+    image: "/home/about/timbilding.webp",
+    href: "/services/timbilding",
   },
   {
     title: "Частные мероприятия",
     caption: "Ужин при свете гирлянд",
     emoji: "🎩",
-    gradient: "linear-gradient(135deg, #8b5a2b 0%, #c98e57 50%, #f3c581 100%)",
+    image: "/home/about/chastnye.webp",
+    href: "/services/chastnye-meropriyatiya",
   },
   {
-    title: "Концерты и шоу",
-    caption: "Сцена. Свет. Полный зал.",
-    emoji: "🎭",
-    gradient: "linear-gradient(135deg, #5a0f2c 0%, #aa1d4a 50%, #e94570 100%)",
+    title: "Деловые мероприятия",
+    caption: "Конференции и форумы",
+    emoji: "🏛️",
+    image: "/home/about/delovye.webp",
+    href: "/services/delovye-meropriyatiya",
   },
   {
-    title: "Корпоративные ёлки",
-    caption: "Зима, олени и северное сияние",
-    emoji: "🦌",
-    gradient: "linear-gradient(135deg, #1f3a72 0%, #4671b8 50%, #a8c8ed 100%)",
+    title: "Праздники",
+    caption: "Дворовые и городские",
+    emoji: "🎈",
+    image: "/home/about/prazdniki.webp",
+    href: "/services",
   },
 ];
 
@@ -82,28 +104,26 @@ export function About() {
           </div>
 
           <div className="lg:col-span-7">
-            <div className="grid grid-cols-2 gap-3 lg:gap-4 h-full min-h-[420px] sm:min-h-[520px] lg:min-h-0">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 lg:gap-4">
               {cards.map((c, i) => (
-                <a
+                <Link
                   key={i}
-                  href="#services"
-                  className="group relative overflow-hidden rounded-[20px] ring-1 ring-hairline h-full min-h-[180px] sm:min-h-[240px]"
-                  style={{ background: c.gradient }}
+                  href={c.href}
+                  className="group relative overflow-hidden rounded-[20px] ring-1 ring-hairline aspect-[3/4] bg-ink"
                 >
-                  <div
-                    aria-hidden
-                    className="absolute inset-0 mix-blend-overlay opacity-30 transition-opacity duration-500 group-hover:opacity-40"
-                    style={{
-                      backgroundImage:
-                        "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'><filter id='n'><feTurbulence baseFrequency='0.7' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")",
-                    }}
+                  <Image
+                    src={c.image}
+                    alt={c.title}
+                    fill
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 30vw, 19vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                   />
                   <div
                     aria-hidden
-                    className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/55 to-transparent"
+                    className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent"
                   />
 
-                  <span className="absolute top-4 right-4 sm:top-5 sm:right-5 text-xl sm:text-2xl drop-shadow-[0_4px_10px_rgba(0,0,0,0.35)]">
+                  <span className="absolute top-4 right-4 sm:top-5 sm:right-5 text-xl sm:text-2xl drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)]">
                     {c.emoji}
                   </span>
 
@@ -115,7 +135,7 @@ export function About() {
                       {c.title}
                     </h4>
                   </div>
-                </a>
+                </Link>
               ))}
             </div>
           </div>

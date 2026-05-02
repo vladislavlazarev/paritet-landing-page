@@ -55,30 +55,30 @@ export function Footer() {
               Соцсети
             </h4>
             <div className="flex gap-3">
-              {["YT", "VK", "TG", "IG"].map((s) => (
-                <a
-                  key={s}
-                  href="#"
-                  className="grid h-11 w-11 place-items-center rounded-full border border-white/15 text-[12px] font-semibold text-white/80 hover:bg-white/10 hover:text-white transition-colors"
-                  aria-label={s}
-                >
-                  {s}
-                </a>
-              ))}
+              <a
+                href="#"
+                aria-label="YouTube"
+                className="grid h-11 w-11 place-items-center rounded-full border border-white/15 text-white/80 hover:bg-white/10 hover:text-white transition-colors"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                  <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z" />
+                </svg>
+              </a>
+              <a
+                href="#"
+                aria-label="ВКонтакте"
+                className="grid h-11 w-11 place-items-center rounded-full border border-white/15 text-white/80 hover:bg-white/10 hover:text-white transition-colors"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                  <path d="M12.8 17.4c-5.7 0-9.3-4-9.4-10.5h2.9c.1 4.8 2.2 6.8 3.9 7.2V6.9h2.7v4.2c1.7-.2 3.4-2.1 4-4.2h2.7c-.5 2.6-2.4 4.5-3.7 5.3 1.3.6 3.5 2.3 4.4 5.2h-3c-.7-2.2-2.3-3.9-4.4-4.1v4.1h-.1Z" />
+                </svg>
+              </a>
             </div>
-            <p className="mt-6 text-[12px] leading-relaxed text-white/45">
-              * Instagram принадлежит Meta Platforms Inc., которая признана
-              экстремистской и запрещена в России.
-            </p>
           </div>
         </div>
 
-        <div className="mt-10 sm:mt-12 pt-5 sm:pt-6 border-t border-white/10 flex flex-col sm:flex-row gap-3 sm:items-center justify-between text-[12px] text-white/45">
+        <div className="mt-10 sm:mt-12 pt-5 sm:pt-6 border-t border-white/10 text-[12px] text-white/45">
           <span>© 2000–2026 Paritet Events. Все права защищены.</span>
-          <div className="flex flex-col sm:flex-row gap-2 sm:gap-6">
-            <a href="#" className="hover:text-white">Политика конфиденциальности</a>
-            <a href="#" className="hover:text-white">Условия использования</a>
-          </div>
         </div>
       </div>
     </footer>

@@ -4,17 +4,24 @@ import { useEffect, useState } from "react";
 import { Logo } from "./logo";
 
 const NAV = [
-  { href: "#portfolio", label: "Портфолио" },
-  { href: "#services", label: "Услуги" },
-  { href: "#about", label: "О нас" },
-  { href: "#contact", label: "Контакты" },
+  { href: "/portfolio", label: "Портфолио" },
+  { href: "/services", label: "Услуги" },
+  { href: "/services/timbilding-koncertmeister", label: "Тимбилдинги" },
+  { href: "/about", label: "О нас" },
+  { href: "/contacts", label: "Контакты" },
 ];
 
 const LOCALES = ["Ru", "En", "Zh"] as const;
 
-export function Header() {
+type HeaderProps = {
+  theme?: "transparent" | "light";
+  active?: string;
+};
+
+export function Header({ theme = "transparent", active }: HeaderProps) {
   const [locale, setLocale] = useState<(typeof LOCALES)[number]>("Ru");
   const [open, setOpen] = useState(false);
+  const isLight = theme === "light";
 
   useEffect(() => {
     if (!open) return;
@@ -25,21 +32,47 @@ export function Header() {
     };
   }, [open]);
 
+  const navTextBase = isLight
+    ? "text-brand/80 hover:text-brand"
+    : "text-white/85 hover:text-white";
+  const navTextActive = isLight ? "text-accent-coral" : "text-accent-coral";
+  const localeIdle = isLight
+    ? "text-brand/55 hover:text-brand"
+    : "text-white/60 hover:text-white";
+  const burgerColor = isLight
+    ? "text-brand hover:bg-brand/5"
+    : "text-white hover:bg-white/10";
+
   return (
-    <header className="absolute top-0 inset-x-0 z-50 bg-transparent">
-      <div className="container-page relative flex h-16 sm:h-20 lg:h-[120px] items-center justify-between text-white">
-        <Logo />
+    <header
+      className={
+        isLight
+          ? "relative z-50 bg-transparent"
+          : "absolute top-0 inset-x-0 z-50 bg-transparent"
+      }
+    >
+      <div
+        className={`container-page relative flex h-16 sm:h-20 lg:h-[120px] items-center justify-between ${
+          isLight ? "text-brand" : "text-white"
+        }`}
+      >
+        <Logo variant={isLight ? "dark" : "light"} />
 
         <nav className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-8 lg:gap-10 text-[16px] lg:text-[21px] font-medium">
-          {NAV.map((n) => (
-            <a
-              key={n.href}
-              href={n.href}
-              className="text-white/85 hover:text-white transition-colors"
-            >
-              {n.label}
-            </a>
-          ))}
+          {NAV.map((n) => {
+            const isActive = active === n.href || active === n.label;
+            return (
+              <a
+                key={n.href}
+                href={n.href}
+                className={`transition-colors ${
+                  isActive ? navTextActive : navTextBase
+                }`}
+              >
+                {n.label}
+              </a>
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-1 sm:gap-2">
@@ -49,9 +82,7 @@ export function Header() {
                 key={l}
                 onClick={() => setLocale(l)}
                 className={`px-2.5 py-1 lg:px-4 lg:py-1.5 rounded-full transition-colors ${
-                  locale === l
-                    ? "text-accent-coral"
-                    : "text-white/60 hover:text-white"
+                  locale === l ? "text-accent-coral" : localeIdle
                 }`}
               >
                 {l}
@@ -64,7 +95,7 @@ export function Header() {
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "Закрыть меню" : "Открыть меню"}
             aria-expanded={open}
-            className="md:hidden grid h-10 w-10 place-items-center rounded-full text-white hover:bg-white/10 transition-colors"
+            className={`md:hidden grid h-10 w-10 place-items-center rounded-full transition-colors ${burgerColor}`}
           >
             {open ? (
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" /></svg>

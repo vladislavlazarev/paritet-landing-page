@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html
       lang="ru"
-      className={`${inter.variable} ${manrope.variable} h-full`}
+      className={`${inter.variable} ${manrope.variable} h-full scroll-smooth`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
