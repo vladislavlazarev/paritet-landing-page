@@ -11,6 +11,7 @@ import {
   getCategoryH1,
   getCategoryServices,
   getCategoryVisual,
+  getOtherServices,
   getServiceBySlug,
   SERVICE_CATEGORIES,
 } from "@/lib/services";
@@ -23,6 +24,14 @@ import {
 } from "@/lib/seo";
 import { getFaq } from "@/data/service-faq";
 import { FaqAccordion } from "@/components/site/faq";
+import { Testimonials } from "@/components/site/testimonials";
+
+/**
+ * Slugs that should show the homepage testimonials carousel inline.
+ * Picked manually for the high-conversion services where social proof
+ * matters most — currently the New Year page only.
+ */
+const TESTIMONIALS_SLUGS = new Set(["korporativnyj-novyj-god"]);
 
 const SERVICE_TO_PORTFOLIO_CATEGORY: Record<string, string> = {
   "korporativnye-meroprijatija": "corporate",
@@ -61,7 +70,11 @@ type Section =
   | { kind: "content"; heading?: string; items: ServiceBlock[] }
   | { kind: "steps"; title: string; items: { title: string; body: string }[] };
 
-/** Group blocks by their preceding heading. Steps blocks become standalone sections. */
+/**
+ * Group blocks by their preceding heading. Section-level headings (default)
+ * start a new section; subsection-level headings stay INSIDE the current
+ * section as inline H3-like dividers, so the visual hierarchy stays clear.
+ */
 function buildSections(blocks: ServiceBlock[]): Section[] {
   const out: Section[] = [];
   let current: { kind: "content"; heading?: string; items: ServiceBlock[] } = {
@@ -79,8 +92,14 @@ function buildSections(blocks: ServiceBlock[]): Section[] {
       continue;
     }
     if (b.kind === "heading") {
-      flush();
-      current.heading = b.text;
+      const level = b.level ?? "section";
+      if (level === "subsection") {
+        // Subsection — keep inside the current section as an inline divider
+        current.items.push(b);
+      } else {
+        flush();
+        current.heading = b.text;
+      }
     } else {
       current.items.push(b);
     }
@@ -112,6 +131,16 @@ function BlockBody({ block }: { block: ServiceBlock }) {
       </ul>
     );
   }
+  if (block.kind === "heading") {
+    // Inline subsection-level heading rendered as <h3> at half the section
+    // size — keeps visual distance from surrounding paragraphs without
+    // competing with the parent section's <h2>.
+    return (
+      <h3 className="font-heading text-[18px] sm:text-[22px] lg:text-[24px] leading-tight tracking-[-0.01em] text-ink mt-6 sm:mt-8 first:mt-0">
+        {block.text}
+      </h3>
+    );
+  }
   return null;
 }
 
@@ -128,6 +157,8 @@ export default async function ServiceDetailPage(
     (c) => c.slug === svc.category,
   )?.title;
   const subServices = isCategory ? getCategoryServices(svc.slug) : [];
+  // For individual service pages — show siblings as "Другие наши услуги".
+  const otherServices = !isCategory ? getOtherServices(svc.slug, 6) : [];
 
   const portfolioCategory = SERVICE_TO_PORTFOLIO_CATEGORY[svc.category];
   const relatedCases = portfolioCategory
@@ -231,13 +262,30 @@ export default async function ServiceDetailPage(
                 </span>
               )}
 
-              <h1 className="font-heading text-[32px] sm:text-[44px] md:text-[56px] lg:text-[72px] leading-[1.05] tracking-[-0.025em] text-white">
-                {isCategory ? getCategoryH1(svc.slug) || svc.title : svc.title}
+              {/*
+                SEO/визуал разнесены:
+                <h1 sr-only> — длинный keyword-богатый заголовок (для поиска);
+                видимый <h2> — короткий sloganstyle-заголовок из оригинала
+                (pageHeading), либо H1 из getCategoryH1, либо просто svc.title.
+              */}
+              <h1 className="sr-only">
+                {isCategory
+                  ? getCategoryH1(svc.slug) || svc.title
+                  : svc.title}
               </h1>
+              <p
+                aria-hidden
+                className="font-heading text-[32px] sm:text-[44px] md:text-[56px] lg:text-[72px] leading-[1.05] tracking-[-0.025em] text-white"
+              >
+                {svc.pageHeading ||
+                  (isCategory
+                    ? getCategoryH1(svc.slug) || svc.title
+                    : svc.title)}
+              </p>
 
-              {(svc.leadIntro || svc.description) && (
-                <p className="mt-4 sm:mt-5 max-w-3xl text-[15px] sm:text-[16px] lg:text-[17px] leading-relaxed text-white/85">
-                  {svc.leadIntro || svc.description}
+              {svc.leadIntro && (
+                <p className="mt-4 sm:mt-5 max-w-3xl text-[16px] sm:text-[18px] lg:text-[20px] leading-relaxed text-white/90">
+                  {svc.leadIntro}
                 </p>
               )}
 
@@ -429,6 +477,68 @@ export default async function ServiceDetailPage(
           </section>
         )}
 
+        {/* OTHER SERVICES — sibling services for individual (non-category) pages */}
+        {!isCategory && otherServices.length > 0 && (
+          <section className="relative bg-surface-soft text-ink">
+            <div className="container-page py-16 sm:py-24 lg:py-32">
+              <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10 sm:mb-14 lg:mb-16">
+                <div className="max-w-xl">
+                  <p className="text-[11px] sm:text-[12px] tracking-[0.28em] uppercase text-muted-fg">
+                    Ещё интересно
+                  </p>
+                  <h2 className="mt-4 font-heading text-[28px] sm:text-[40px] md:text-[52px] leading-[1.05] tracking-[-0.025em] text-ink">
+                    Другие наши услуги
+                  </h2>
+                </div>
+                {categoryTitle && (
+                  <Link
+                    href={`/services/${svc.category}`}
+                    className="inline-flex h-12 items-center rounded-full border border-hairline bg-white px-5 text-[14px] font-medium text-ink hover:bg-surface-strong transition-colors self-start sm:self-auto"
+                  >
+                    Все: {categoryTitle.toLowerCase()} →
+                  </Link>
+                )}
+              </div>
+
+              <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
+                {otherServices.map((s) => (
+                  <li key={s.slug}>
+                    <Link
+                      href={`/services/${s.slug}`}
+                      className="group block rounded-[20px] overflow-hidden ring-1 ring-hairline bg-white transition-shadow hover:shadow-[0_18px_50px_-30px_rgba(31,26,85,0.35)]"
+                    >
+                      <div
+                        className="aspect-[4/3] relative overflow-hidden"
+                        style={{ background: getCategoryVisual(s.category).gradient }}
+                      >
+                        {s.image && (
+                          <Image
+                            src={s.image}
+                            alt={s.pageHeading || s.title}
+                            fill
+                            sizes="(min-width:1024px) 380px, (min-width:640px) 50vw, 100vw"
+                            className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                          />
+                        )}
+                      </div>
+                      <div className="px-6 sm:px-7 py-5 sm:py-6">
+                        <h3 className="text-[18px] sm:text-[20px] leading-snug text-ink">
+                          {s.pageHeading || s.title}
+                        </h3>
+                        <div className="mt-5 flex items-center justify-end text-[13px]">
+                          <span className="text-brand font-medium group-hover:text-accent-coral transition-colors">
+                            Подробнее →
+                          </span>
+                        </div>
+                      </div>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
+
         {/* GALLERY — bento photo grid when we have images */}
         {galleryImages.length > 0 && (
           <section
@@ -451,6 +561,9 @@ export default async function ServiceDetailPage(
             </div>
           </section>
         )}
+
+        {/* TESTIMONIALS — only on whitelisted high-conversion service pages */}
+        {TESTIMONIALS_SLUGS.has(svc.slug) && <Testimonials />}
 
         {/* FAQ — visible block + FAQPage schema (top-5 services only) */}
         {faq && faq.length > 0 && (

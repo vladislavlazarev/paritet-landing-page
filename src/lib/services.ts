@@ -3,7 +3,13 @@ import rawServices from "@/data/services.json";
 export type ServiceKind = "category" | "service";
 
 export type ServiceBlock =
-  | { kind: "heading"; text: string }
+  | {
+      kind: "heading";
+      text: string;
+      /** "section" — main H2 (large); "subsection" — H3 inside a section
+       *  (medium). Defaults to "section" when omitted. */
+      level?: "section" | "subsection";
+    }
   | { kind: "paragraph"; text: string }
   | { kind: "list"; items: string[] }
   | { kind: "steps"; title: string; items: { title: string; body: string }[] };
@@ -30,6 +36,9 @@ export type Service = {
   images: string[];
   /** Convenience alias for images[0]. */
   image?: string;
+  /** Short visible H1 from the legacy site (e.g. «Проведение свадьбы»). Falls
+   *  back to `title` when missing. */
+  pageHeading?: string;
   /** Hero lead paragraph from the source site (replaces SEO description above the fold). */
   leadIntro?: string;
   /** Short hero facts (e.g. "длительность · от 2 до 8 часов"). */
@@ -52,6 +61,7 @@ type RawServiceEntry = {
   >;
   images?: string[];
   image?: string;
+  pageHeading?: string;
   leadIntro?: string;
   leadFacts?: ServiceFact[];
   seo?: SeoMeta;
@@ -112,7 +122,8 @@ function tidyBlocks(raw: RawServiceEntry["body"] = []): ServiceBlock[] {
 
   // Reclassify mistyped subheadings: a short, title-cased paragraph immediately
   // followed by a long descriptive paragraph is almost certainly an H3 the
-  // scraper misread as <p>.
+  // scraper misread as <p>. We mark these as `level: "subsection"` so the
+  // render uses a smaller typographic size — keeps visual hierarchy.
   for (let i = 0; i < cleaned.length - 1; i++) {
     const cur = cleaned[i];
     const next = cleaned[i + 1];
@@ -122,7 +133,11 @@ function tidyBlocks(raw: RawServiceEntry["body"] = []): ServiceBlock[] {
       looksLikeSubheading(cur.text) &&
       next.text.length > 100
     ) {
-      cleaned[i] = { kind: "heading", text: cur.text };
+      cleaned[i] = {
+        kind: "heading",
+        text: cur.text,
+        level: "subsection",
+      };
     }
   }
 
@@ -168,6 +183,7 @@ function adapt(raw: RawServiceEntry): Service {
     body: tidyBlocks(raw.body),
     images,
     image: raw.image || images[0],
+    pageHeading: raw.pageHeading?.trim() || undefined,
     leadIntro: raw.leadIntro?.trim() || undefined,
     leadFacts,
     seo: raw.seo || {},
@@ -248,6 +264,35 @@ export const SERVICES: Service[] = (rawServices as RawServiceEntry[]).map(
 
 export function getServiceBySlug(slug: string): Service | undefined {
   return SERVICES.find((s) => s.slug === slug);
+}
+
+/**
+ * Returns sibling services (same parent category as `slug`) — used as
+ * the "Другие наши услуги" block on individual service pages. Excludes
+ * the current page; falls back to a sample of 6 services from any
+ * category if none found.
+ */
+export function getOtherServices(
+  slug: string,
+  limit = 6,
+): Service[] {
+  const me = SERVICES.find((s) => s.slug === slug);
+  if (!me) return [];
+  const siblings = SERVICES.filter(
+    (s) =>
+      s.kind === "service" &&
+      s.slug !== slug &&
+      s.category === me.category,
+  );
+  if (siblings.length >= limit) return siblings.slice(0, limit);
+  // Top up with services from other categories so the row never looks empty.
+  const others = SERVICES.filter(
+    (s) =>
+      s.kind === "service" &&
+      s.slug !== slug &&
+      s.category !== me.category,
+  ).slice(0, limit - siblings.length);
+  return [...siblings, ...others];
 }
 
 export function getCategoryServices(categorySlug: string): Service[] {
