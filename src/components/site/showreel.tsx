@@ -2,12 +2,27 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useLocale } from "@/lib/i18n/locale-context";
+import { useProgressiveVideo } from "@/lib/use-progressive-video";
+
+const LOW_SOURCES = {
+  mp4: "/videos/showreel-low.mp4",
+  webm: "/videos/showreel-low.webm",
+};
+const HIGH_SOURCES = {
+  mp4: "/videos/showreel.mp4",
+  webm: "/videos/showreel.webm",
+};
 
 export function Showreel() {
   const { dict } = useLocale();
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [autoplaying, setAutoplaying] = useState(false);
   const [unmuted, setUnmuted] = useState(false);
+  const { upgraded } = useProgressiveVideo({
+    videoRef,
+    low: LOW_SOURCES,
+    high: HIGH_SOURCES,
+  });
 
   useEffect(() => {
     const v = videoRef.current;
@@ -59,8 +74,14 @@ export function Showreel() {
         preload="metadata"
         controls={unmuted}
       >
-        <source src="/videos/showreel.mp4" type="video/mp4" />
-        <source src="/videos/showreel.webm" type="video/webm" />
+        <source
+          src={upgraded ? HIGH_SOURCES.mp4 : LOW_SOURCES.mp4}
+          type="video/mp4"
+        />
+        <source
+          src={upgraded ? HIGH_SOURCES.webm : LOW_SOURCES.webm}
+          type="video/webm"
+        />
       </video>
 
       {!unmuted && (

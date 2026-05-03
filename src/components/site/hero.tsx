@@ -1,6 +1,7 @@
 import type { Dictionary } from "@/lib/i18n/types";
 import type { Locale } from "@/lib/i18n/config";
 import ruDict from "@/lib/i18n/dictionaries/ru";
+import { HeroBackgroundVideo } from "@/components/site/hero-background-video";
 
 type HeroProps = {
   dict?: Dictionary;
@@ -10,19 +11,11 @@ type HeroProps = {
 export function Hero({ dict = ruDict }: HeroProps = {}) {
   return (
     <section className="relative isolate overflow-hidden bg-[#0a0b0d] text-white min-h-[100svh] flex items-end pt-24 sm:pt-28">
-      <video
+      <HeroBackgroundVideo
         className="absolute inset-0 h-full w-full object-cover -z-20"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
         poster="/hero-poster.jpg"
-        aria-label={dict.hero.showreelAria}
-      >
-        <source src="/videos/showreel.mp4" type="video/mp4" />
-        <source src="/videos/showreel.webm" type="video/webm" />
-      </video>
+        ariaLabel={dict.hero.showreelAria}
+      />
 
       <div
         aria-hidden

@@ -109,6 +109,7 @@ export default function KoncertmeisterPage() {
             alt=""
             fill
             priority
+            quality={90}
             sizes="100vw"
             className="absolute inset-0 -z-20 object-cover"
           />

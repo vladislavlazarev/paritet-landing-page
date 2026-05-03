@@ -223,6 +223,7 @@ export default async function PortfolioEventPage(
                   alt={event.title}
                   fill
                   priority
+                  quality={90}
                   sizes="(min-width: 1240px) 1240px, 100vw"
                   className="object-cover"
                 />
