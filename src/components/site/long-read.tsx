@@ -1,5 +1,7 @@
 import Image from "next/image";
 import type { ServiceBlock } from "@/lib/services";
+import type { Dictionary } from "@/lib/i18n/types";
+import ruDict from "@/lib/i18n/dictionaries/ru";
 
 type Props = {
   title: string;
@@ -7,6 +9,17 @@ type Props = {
   description?: string;
   heroImage?: string;
   body: ServiceBlock[];
+  /**
+   * Locale of the body content (the long-form text). Defaults to "ru".
+   * The wrapper sets `lang` on the prose container so screen readers and
+   * search engines flag the content correctly even when the surrounding
+   * chrome is in another language.
+   */
+  contentLang?: "ru" | "en" | "zh";
+  /** Optional notice shown above the content (e.g. translation hint). */
+  notice?: string;
+  /** UI dictionary; defaults to RU. */
+  dict?: Dictionary;
 };
 
 function BlockView({ block }: { block: ServiceBlock }) {
@@ -48,6 +61,8 @@ export function LongRead({
   description,
   heroImage,
   body,
+  contentLang = "ru",
+  notice,
 }: Props) {
   return (
     <>
@@ -64,11 +79,17 @@ export function LongRead({
               {eyebrow}
             </p>
           )}
-          <h1 className="font-heading text-[32px] sm:text-[44px] md:text-[56px] lg:text-[72px] leading-[1.05] tracking-[-0.025em] text-white max-w-4xl">
+          <h1
+            lang={contentLang === "ru" ? undefined : contentLang}
+            className="font-heading text-[32px] sm:text-[44px] md:text-[56px] lg:text-[72px] leading-[1.05] tracking-[-0.025em] text-white max-w-4xl"
+          >
             {title}
           </h1>
           {description && (
-            <p className="mt-7 max-w-2xl text-[15px] sm:text-[17px] leading-relaxed text-white/85">
+            <p
+              lang={contentLang === "ru" ? undefined : contentLang}
+              className="mt-7 max-w-2xl text-[15px] sm:text-[17px] leading-relaxed text-white/85"
+            >
               {description}
             </p>
           )}
@@ -96,12 +117,22 @@ export function LongRead({
 
         <div className="container-page pb-12 sm:pb-16 lg:pb-20">
           <div className="max-w-[760px] mx-auto space-y-5 sm:space-y-6">
-            {body.map((block, i) => (
-              <BlockView key={i} block={block} />
-            ))}
+            {notice && (
+              <p className="not-prose mb-4 text-[14px] leading-relaxed text-muted-fg border-l-2 border-accent-coral/40 pl-4">
+                {notice}
+              </p>
+            )}
+            <div lang="ru" className="space-y-5 sm:space-y-6">
+              {body.map((block, i) => (
+                <BlockView key={i} block={block} />
+              ))}
+            </div>
           </div>
         </div>
       </section>
     </>
   );
 }
+
+// keep unused import suppressed when notice/dict don't apply
+void ruDict;

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useLocale } from "@/lib/i18n/locale-context";
 
 type Props = {
   children: React.ReactNode;
@@ -32,6 +33,7 @@ export function Carousel({
   bleed = "container",
   persistKey,
 }: Props) {
+  const { dict } = useLocale();
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [active, setActive] = useState(0);
   const [count, setCount] = useState(0);
@@ -127,7 +129,7 @@ export function Carousel({
           <button
             type="button"
             onClick={prev}
-            aria-label="Предыдущий"
+            aria-label={dict.carousel.prev}
             disabled={active === 0}
             className={arrow}
           >
@@ -136,7 +138,7 @@ export function Carousel({
           <button
             type="button"
             onClick={next}
-            aria-label="Следующий"
+            aria-label={dict.carousel.next}
             disabled={active >= count - 1}
             className={arrow}
           >

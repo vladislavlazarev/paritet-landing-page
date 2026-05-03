@@ -2,8 +2,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { Carousel } from "./carousel";
 import { CATEGORY_LABEL, PORTFOLIO } from "@/lib/portfolio";
+import type { Dictionary } from "@/lib/i18n/types";
+import { DEFAULT_LOCALE, type Locale } from "@/lib/i18n/config";
+import ruDict from "@/lib/i18n/dictionaries/ru";
+import { p } from "@/lib/i18n/paths";
 
-export function Events() {
+type EventsProps = {
+  dict?: Dictionary;
+  locale?: Locale;
+};
+
+export function Events({
+  dict = ruDict,
+  locale = DEFAULT_LOCALE,
+}: EventsProps = {}) {
   const events = PORTFOLIO.filter((e) => e.coverImage).slice(0, 8);
 
   return (
@@ -18,13 +30,13 @@ export function Events() {
       <div className="container-page pt-16 sm:pt-24 lg:pt-32 pb-8 sm:pb-12">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-5 sm:gap-6">
           <h2 className="font-heading text-[28px] sm:text-[40px] md:text-[56px] leading-[1.08] sm:leading-[1.03] tracking-[-0.025em] text-white">
-            Последние мероприятия
+            {dict.events.title}
           </h2>
           <Link
-            href="/portfolio"
+            href={p(locale, "/portfolio")}
             className="inline-flex h-12 items-center rounded-full border border-white/25 px-5 text-[14px] font-medium text-white hover:bg-white/10 transition-colors self-start sm:self-auto"
           >
-            Все проекты →
+            {dict.events.allLink}
           </Link>
         </div>
       </div>
@@ -40,7 +52,7 @@ export function Events() {
           {events.map((e) => (
             <Link
               key={e.slug}
-              href={`/portfolio/${e.slug}`}
+              href={p(locale, `/portfolio/${e.slug}`)}
               className="flex h-full flex-col bg-white text-ink rounded-[24px] overflow-hidden ring-1 ring-white/10 transition-transform hover:-translate-y-1"
             >
               <div
@@ -65,7 +77,7 @@ export function Events() {
                   {e.title}
                 </h3>
                 <div className="mt-auto pt-6 flex items-center justify-end text-[13px] text-muted-fg">
-                  <span className="text-brand font-medium">Подробнее →</span>
+                  <span className="text-brand font-medium">{dict.events.moreLink}</span>
                 </div>
               </div>
             </Link>

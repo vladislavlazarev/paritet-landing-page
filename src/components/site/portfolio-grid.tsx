@@ -8,23 +8,66 @@ import {
   type PortfolioCategory,
   type PortfolioEvent,
 } from "@/lib/portfolio";
+import { useLocale } from "@/lib/i18n/locale-context";
+import { p as lp } from "@/lib/i18n/paths";
 
 type Filter = "all" | PortfolioCategory;
 
-const FILTERS: { value: Filter; label: string }[] = [
-  { value: "all", label: "Все" },
-  { value: "corporate", label: CATEGORY_LABEL.corporate },
-  { value: "concerts", label: CATEGORY_LABEL.concerts },
-  { value: "teambuilding", label: CATEGORY_LABEL.teambuilding },
-  { value: "private", label: CATEGORY_LABEL.private },
-  { value: "business", label: CATEGORY_LABEL.business },
-  { value: "holidays", label: CATEGORY_LABEL.holidays },
+const FILTER_LABELS: Record<Filter, { ru: string; en: string; zh: string }> = {
+  all: { ru: "Все", en: "All", zh: "全部" },
+  corporate: {
+    ru: CATEGORY_LABEL.corporate,
+    en: "Corporate",
+    zh: "企业活动",
+  },
+  concerts: {
+    ru: CATEGORY_LABEL.concerts,
+    en: "Concerts",
+    zh: "音乐会",
+  },
+  teambuilding: {
+    ru: CATEGORY_LABEL.teambuilding,
+    en: "Team-building",
+    zh: "团队建设",
+  },
+  private: {
+    ru: CATEGORY_LABEL.private,
+    en: "Private events",
+    zh: "私人活动",
+  },
+  business: {
+    ru: CATEGORY_LABEL.business,
+    en: "Business events",
+    zh: "商务活动",
+  },
+  holidays: {
+    ru: CATEGORY_LABEL.holidays,
+    en: "Holidays",
+    zh: "节庆",
+  },
+};
+
+const FILTERS: Filter[] = [
+  "all",
+  "corporate",
+  "concerts",
+  "teambuilding",
+  "private",
+  "business",
+  "holidays",
 ];
+
+const EMPTY_LABEL: Record<"ru" | "en" | "zh", string> = {
+  ru: "В этой категории пока нет проектов.",
+  en: "No projects in this category yet.",
+  zh: "此分类暂无项目。",
+};
 
 const NOISE_SVG =
   "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'><filter id='n'><feTurbulence baseFrequency='0.7' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")";
 
 export function PortfolioGrid({ events }: { events: PortfolioEvent[] }) {
+  const { locale } = useLocale();
   const [filter, setFilter] = useState<Filter>("all");
 
   const visible = useMemo(
@@ -38,19 +81,19 @@ export function PortfolioGrid({ events }: { events: PortfolioEvent[] }) {
       <div className="container-page pb-12 sm:pb-14 lg:pb-16">
         <div className="flex flex-wrap gap-2 sm:gap-3">
           {FILTERS.map((f) => {
-            const active = f.value === filter;
+            const active = f === filter;
             return (
               <button
-                key={f.value}
+                key={f}
                 type="button"
-                onClick={() => setFilter(f.value)}
+                onClick={() => setFilter(f)}
                 className={`inline-flex h-10 sm:h-12 items-center rounded-full px-4 sm:px-6 text-[13px] sm:text-[15px] font-medium transition-colors ${
                   active
                     ? "bg-accent-coral text-white"
                     : "text-white/85 hover:text-white hover:bg-white/10"
                 }`}
               >
-                {f.label}
+                {FILTER_LABELS[f][locale]}
               </button>
             );
           })}
@@ -63,7 +106,7 @@ export function PortfolioGrid({ events }: { events: PortfolioEvent[] }) {
             {visible.map((e) => (
               <Link
                 key={e.slug}
-                href={`/portfolio/${e.slug}`}
+                href={lp(locale, `/portfolio/${e.slug}`)}
                 className="group bg-white rounded-[20px] overflow-hidden ring-1 ring-hairline transition-shadow hover:shadow-[0_12px_40px_-20px_rgba(31,26,85,0.45)]"
               >
                 <div
@@ -93,7 +136,8 @@ export function PortfolioGrid({ events }: { events: PortfolioEvent[] }) {
                 </div>
                 <div className="px-6 sm:px-7 pt-5 sm:pt-6 pb-7 sm:pb-8">
                   <p className="text-[13px] sm:text-[14px] text-muted-fg">
-                    {CATEGORY_LABEL[e.category]}
+                    {FILTER_LABELS[e.category as Filter]?.[locale] ??
+                      CATEGORY_LABEL[e.category]}
                   </p>
                   <h3 className="mt-3 text-[18px] sm:text-[20px] leading-snug text-ink">
                     {e.title}
@@ -105,7 +149,7 @@ export function PortfolioGrid({ events }: { events: PortfolioEvent[] }) {
 
           {visible.length === 0 && (
             <p className="text-center text-body py-16">
-              В этой категории пока нет проектов.
+              {EMPTY_LABEL[locale]}
             </p>
           )}
         </div>

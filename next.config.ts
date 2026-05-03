@@ -97,15 +97,6 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
 
-      // 3. EN-version pages — site has no EN counterpart yet; redirect to RU
-      // root and let visitors navigate. When an EN version ships, replace
-      // these with proper /en/* routes.
-      {
-        source: "/en/:path*",
-        destination: "/",
-        permanent: false, // 307 — temporary, swap to true once /en/ exists
-      },
-
       // 4. Renamed top-level pages
       { source: "/o-kompanii", destination: "/about", permanent: true },
       { source: "/o-kompanii/", destination: "/about", permanent: true },

@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useLocale } from "@/lib/i18n/locale-context";
 
 export function Showreel() {
+  const { dict } = useLocale();
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [autoplaying, setAutoplaying] = useState(false);
   const [unmuted, setUnmuted] = useState(false);
@@ -40,7 +42,7 @@ export function Showreel() {
     <button
       type="button"
       onClick={showPlayOverlay ? play : undefined}
-      aria-label="Смотреть промо-ролик"
+      aria-label={dict.aboutPage.promoTitle}
       className={`group relative block w-full overflow-hidden rounded-[20px] sm:rounded-[28px] aspect-[16/9] ring-1 ring-white/10 focus:outline-none ${
         showPlayOverlay
           ? "cursor-pointer focus:ring-2 focus:ring-accent-coral"
@@ -91,7 +93,7 @@ export function Showreel() {
                   </svg>
                 </span>
                 <span className="font-heading text-[18px] sm:text-[22px] lg:text-[26px] tracking-[-0.01em]">
-                  Смотреть промо-ролик
+                  {dict.aboutPage.promoTitle}
                 </span>
               </div>
             </div>

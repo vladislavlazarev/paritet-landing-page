@@ -1,4 +1,21 @@
-export function Contact() {
+import Link from "next/link";
+import type { Dictionary } from "@/lib/i18n/types";
+import { DEFAULT_LOCALE, type Locale } from "@/lib/i18n/config";
+import ruDict from "@/lib/i18n/dictionaries/ru";
+import { p } from "@/lib/i18n/paths";
+
+type ContactProps = {
+  dict?: Dictionary;
+  locale?: Locale;
+};
+
+export function Contact({
+  dict = ruDict,
+  locale = DEFAULT_LOCALE,
+}: ContactProps = {}) {
+  // Build the inline-link note: split on the placeholder, drop in a Link.
+  const parts = dict.contact.nyeNote.split("{link}");
+
   return (
     <section id="contact" className="relative bg-white">
       <div className="container-page py-16 sm:py-20 lg:py-24">
@@ -20,10 +37,10 @@ export function Contact() {
 
           <div className="relative max-w-3xl">
             <h2 className="font-heading text-[28px] sm:text-[44px] md:text-[64px] leading-[1.08] sm:leading-[1.02] tracking-[-0.025em]">
-              Начнём планировать?
+              {dict.contact.title}
             </h2>
             <p className="mt-5 sm:mt-7 text-[15px] sm:text-[16px] leading-relaxed text-white/80 max-w-lg">
-              Позвоните нам или напишите в&nbsp;Telegram:
+              {dict.contact.sub}
             </p>
 
             <div className="mt-8 sm:mt-10 space-y-2 sm:space-y-3">
@@ -47,7 +64,7 @@ export function Contact() {
                 className="inline-flex h-11 items-center gap-2 rounded-full bg-white/10 hover:bg-white/15 transition-colors px-5 text-[14px] font-medium text-white"
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.5 0 1 .4 1 1V20c0 .5-.5 1-1 1-9.4 0-17-7.6-17-17 0-.5.5-1 1-1h3.4c.6 0 1 .5 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1z" /></svg>
-                Позвонить
+                {dict.contact.callBtn}
               </a>
               <a
                 href="https://t.me/paritetevents"
@@ -56,18 +73,21 @@ export function Contact() {
                 className="inline-flex h-11 items-center gap-2 rounded-full bg-white/10 hover:bg-white/15 transition-colors px-5 text-[14px] font-medium text-white"
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22 3 2 11l6 2 2 7 4-5 6 5 2-17z" /></svg>
-                Telegram
+                {dict.contact.telegramBtn}
               </a>
             </div>
           </div>
         </div>
 
         <p className="mt-8 sm:mt-10 text-[14px] text-body max-w-2xl">
-          Время загадывать желания: готовим{" "}
-          <a href="#services" className="text-brand underline underline-offset-4 hover:text-accent-coral">
-            новогодний корпоратив
-          </a>
-          , о котором будут говорить весь год.
+          {parts[0]}
+          <Link
+            href={p(locale, "/services/korporativnyj-novyj-god")}
+            className="text-brand underline underline-offset-4 hover:text-accent-coral"
+          >
+            {dict.contact.nyeNoteLink}
+          </Link>
+          {parts[1] || ""}
         </p>
       </div>
     </section>

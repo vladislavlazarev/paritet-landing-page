@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Manrope } from "next/font/google";
 import "./globals.css";
-import { SITE_NAME, SITE_URL } from "@/lib/seo";
+import { SITE_NAME, SITE_URL, buildLanguageAlternates } from "@/lib/seo";
 import { AnchorSmoothScroll } from "@/components/site/anchor-smooth-scroll";
 
 const inter = Inter({
@@ -27,10 +27,14 @@ export const metadata: Metadata = {
     template: `%s — ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
-  alternates: { canonical: SITE_URL },
+  alternates: {
+    canonical: SITE_URL,
+    languages: buildLanguageAlternates("/"),
+  },
   openGraph: {
     type: "website",
     locale: "ru_RU",
+    alternateLocale: ["en_US", "zh_CN"],
     url: SITE_URL,
     siteName: SITE_NAME,
     title: `${SITE_NAME} — организация праздников в Санкт-Петербурге`,

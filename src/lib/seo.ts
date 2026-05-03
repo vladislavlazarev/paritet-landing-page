@@ -1,4 +1,10 @@
 import type { Metadata } from "next";
+import {
+  DEFAULT_LOCALE,
+  LOCALES,
+  LOCALE_BCP47,
+  type Locale,
+} from "@/lib/i18n/config";
 
 /**
  * Production canonical origin. Override locally with NEXT_PUBLIC_SITE_URL
@@ -8,6 +14,7 @@ export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://party-paritet.com";
 
 export const SITE_NAME = "Паритет Events";
+export const SITE_NAME_LATIN = "Paritet Events";
 
 export const ORG_LEGAL_NAME = "Paritet Events";
 export const ORG_PHONE_PRIMARY = "+7 (921) 410-21-21";
@@ -21,9 +28,47 @@ export function absoluteUrl(pathname: string): string {
   return `${SITE_URL}${pathname.startsWith("/") ? "" : "/"}${pathname}`;
 }
 
+/**
+ * Locale-aware path builder. Russian (the default locale) keeps the historic
+ * unprefixed URLs; other locales get a /<locale>/ prefix. Existing search
+ * authority on /portfolio etc. stays put.
+ */
+export function localizedPath(locale: Locale, neutralPath: string): string {
+  const clean = neutralPath.startsWith("/") ? neutralPath : `/${neutralPath}`;
+  if (locale === DEFAULT_LOCALE) return clean;
+  if (clean === "/") return `/${locale}`;
+  return `/${locale}${clean}`;
+}
+
+/** Localized absolute URL for a locale-neutral path. */
+export function localizedAbsoluteUrl(
+  locale: Locale,
+  neutralPath: string,
+): string {
+  return absoluteUrl(localizedPath(locale, neutralPath));
+}
+
+/**
+ * Build the hreflang `alternates.languages` map for a locale-neutral path.
+ * Includes a `x-default` pointing at the default locale, which signals to
+ * Google which version to show when the user's language is unsupported.
+ */
+export function buildLanguageAlternates(
+  neutralPath: string,
+): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const loc of LOCALES) {
+    out[LOCALE_BCP47[loc]] = localizedAbsoluteUrl(loc, neutralPath);
+  }
+  out["x-default"] = localizedAbsoluteUrl(DEFAULT_LOCALE, neutralPath);
+  return out;
+}
+
 type BuildMetaInput = {
-  /** Path on the new site (e.g. /portfolio/abc) — NOT including the origin. */
+  /** Locale-neutral path (e.g. /portfolio, /portfolio/abc). NOT prefixed. */
   path: string;
+  /** Defaults to the site default locale (ru). */
+  locale?: Locale;
   /** Page title shown in search results / browser tab. */
   title: string;
   description?: string;
@@ -33,6 +78,8 @@ type BuildMetaInput = {
   type?: "website" | "article";
   /** Set to true to no-index this URL. */
   noIndex?: boolean;
+  /** Override the brand suffix appended to the title. */
+  siteName?: string;
 };
 
 const TITLE_MAX = 65;
@@ -49,6 +96,7 @@ function normaliseTitle(raw: string): string {
   let t = raw.trim().replace(/\s+—\s+«?Паритет.*$/i, "").trim();
   t = t.replace(/\s+\|\s+Paritet\s*Events?$/i, "").trim();
   t = t.replace(/\s+от\s+«?Паритет\s*events?»?$/i, "").trim();
+  t = t.replace(/\s+—\s+Paritet\s*Events?$/i, "").trim();
   if (t.length > TITLE_MAX) {
     const cut = t.slice(0, TITLE_MAX);
     const lastSpace = cut.lastIndexOf(" ");
@@ -58,42 +106,49 @@ function normaliseTitle(raw: string): string {
 }
 
 /**
- * Builds a complete metadata object: title, description, canonical, OG, Twitter.
- * Use this in every page's `generateMetadata`.
+ * Builds a complete metadata object: title, description, canonical, hreflang,
+ * OG, Twitter. Use this in every page's `generateMetadata`.
  */
 export function buildMeta({
   path,
+  locale = DEFAULT_LOCALE,
   title,
   description,
   image,
   type = "website",
   noIndex,
+  siteName,
 }: BuildMetaInput): Metadata {
-  const url = absoluteUrl(path);
+  const url = localizedAbsoluteUrl(locale, path);
   const ogImage = image
     ? image.startsWith("http")
       ? image
       : absoluteUrl(image)
     : `${SITE_URL}/og-default.png`;
 
-  // Pages already targeting the brand should not be wrapped a second time by
-  // the layout-level title template — pass `absolute` to opt out.
   const niceTitle = normaliseTitle(title);
-  const titleField = `${niceTitle} — ${SITE_NAME}`;
+  const brand = siteName || (locale === "ru" ? SITE_NAME : SITE_NAME_LATIN);
+  const titleField = `${niceTitle} — ${brand}`;
 
   return {
     metadataBase: new URL(SITE_URL),
     title: { absolute: titleField },
     description,
-    alternates: { canonical: url },
+    alternates: {
+      canonical: url,
+      languages: buildLanguageAlternates(path),
+    },
     robots: noIndex ? { index: false, follow: false } : undefined,
     openGraph: {
       type,
       url,
       title: titleField,
       description,
-      siteName: SITE_NAME,
-      locale: "ru_RU",
+      siteName: brand,
+      locale: LOCALE_BCP47[locale].replace("-", "_"),
+      alternateLocale: LOCALES.filter((l) => l !== locale).map((l) =>
+        LOCALE_BCP47[l].replace("-", "_"),
+      ),
       images: [{ url: ogImage }],
     },
     twitter: {
@@ -154,6 +209,7 @@ type ArticleJsonLdInput = {
   title: string;
   description?: string;
   image?: string;
+  inLanguage?: string;
 };
 
 export function articleJsonLd(input: ArticleJsonLdInput) {
@@ -162,6 +218,7 @@ export function articleJsonLd(input: ArticleJsonLdInput) {
     "@type": "Article",
     headline: input.title,
     description: input.description,
+    inLanguage: input.inLanguage,
     image: input.image
       ? input.image.startsWith("http")
         ? input.image
@@ -185,6 +242,7 @@ type ServiceJsonLdInput = {
   description?: string;
   image?: string;
   area?: string;
+  inLanguage?: string;
 };
 
 export function serviceJsonLd(input: ServiceJsonLdInput) {
@@ -193,6 +251,7 @@ export function serviceJsonLd(input: ServiceJsonLdInput) {
     "@type": "Service",
     name: input.title,
     description: input.description,
+    inLanguage: input.inLanguage,
     image: input.image
       ? input.image.startsWith("http")
         ? input.image
@@ -274,6 +333,7 @@ type VideoJsonLdInput = {
   contentUrl: string;
   uploadDate: string;
   duration?: string; // ISO 8601, e.g. PT3M42S
+  inLanguage?: string;
 };
 
 export function videoJsonLd(input: VideoJsonLdInput) {
@@ -282,6 +342,7 @@ export function videoJsonLd(input: VideoJsonLdInput) {
     "@type": "VideoObject",
     name: input.name,
     description: input.description,
+    inLanguage: input.inLanguage,
     thumbnailUrl: input.thumbnailUrl.startsWith("http")
       ? input.thumbnailUrl
       : absoluteUrl(input.thumbnailUrl),

@@ -14,6 +14,13 @@ export const metadata: Metadata = {
 
 const ASSETS = "/services/koncertmeister";
 
+const LEAD_FACTS = [
+  { title: "от 3 000 ₽", subtitle: "с человека" },
+  { title: "50–450", subtitle: "участников" },
+  { title: "1–3 часа", subtitle: "монтаж" },
+  { title: "Свой продакшн", subtitle: "звук, свет, инструменты" },
+];
+
 const STEPS = [
   {
     title: "Дата и площадка",
@@ -95,8 +102,8 @@ export default function KoncertmeisterPage() {
     <>
       <Header />
       <main className="flex-1">
-        {/* HERO — full-bleed image + dark gradient, exactly 100svh including header */}
-        <section className="relative isolate overflow-hidden bg-[#0a0b0d] text-white min-h-[100svh] flex items-end pt-28 sm:pt-32 lg:pt-40">
+        {/* HERO — full-bleed image + dark overlay; targets ~100svh, grows for long content */}
+        <section className="relative isolate overflow-hidden bg-[#0a0b0d] text-white min-h-[100svh] flex items-end pt-28 sm:pt-32 lg:pt-36 pb-10 sm:pb-12 lg:pb-16">
           <Image
             src={`${ASSETS}/ivn_2567.webp`}
             alt=""
@@ -105,55 +112,90 @@ export default function KoncertmeisterPage() {
             sizes="100vw"
             className="absolute inset-0 -z-20 object-cover"
           />
+          <div aria-hidden className="absolute inset-0 -z-10 bg-black/55" />
           <div
             aria-hidden
             className="absolute inset-0 -z-10"
             style={{
               backgroundImage:
-                "radial-gradient(900px 600px at 80% 25%, rgba(120,40,200,0.45), transparent 60%), radial-gradient(700px 500px at 15% 75%, rgba(238,59,86,0.22), transparent 60%), linear-gradient(180deg, rgba(10,11,13,0.55) 0%, rgba(21,4,31,0.65) 55%, rgba(10,11,13,0.95) 100%)",
+                "radial-gradient(900px 600px at 80% 25%, rgba(120,40,200,0.38), transparent 60%), linear-gradient(180deg, transparent 0%, rgba(10,11,13,0.55) 55%, rgba(10,11,13,0.92) 100%)",
             }}
           />
 
-          <div className="container-page pb-10 sm:pb-14 lg:pb-20">
+          <div className="container-page w-full">
             <div className="max-w-4xl">
-              <h1 className="font-heading text-[36px] sm:text-[60px] md:text-[76px] lg:text-[100px] leading-[1] tracking-[-0.03em] text-white">
-                <span className="block font-heading text-[14px] sm:text-[20px] md:text-[22px] lg:text-[26px] tracking-[0.06em] uppercase text-white/55 mb-3 sm:mb-4">
-                  Музыкальный тимбилдинг
-                </span>
-                Концертмейстер
+              <Link
+                href="/services/timbilding"
+                className="inline-block text-[12px] sm:text-[13px] tracking-[0.28em] uppercase text-white/65 hover:text-accent-coral transition-colors mb-4 sm:mb-5"
+              >
+                ← Тимбилдинги
+              </Link>
+
+              <h1 className="font-heading text-[32px] sm:text-[44px] md:text-[56px] lg:text-[72px] leading-[1.05] tracking-[-0.025em] text-white">
+                Музыкальный тимбилдинг «Концертмейстер»
               </h1>
 
-              <p className="mt-5 sm:mt-7 max-w-2xl text-[15px] sm:text-[16px] lg:text-[17px] leading-relaxed text-white/75">
+              <p className="mt-4 sm:mt-5 max-w-3xl text-[15px] sm:text-[16px] lg:text-[17px] leading-relaxed text-white/85">
                 Под руководством профессионального дирижёра ваш коллектив за
                 один вечер становится настоящим оркестром и исполняет
                 известный хит на скрипках. Программа собирается под формат
                 от 50 до 450 человек.
               </p>
 
-              <div className="mt-7 sm:mt-9">
-                <p className="font-heading text-[24px] sm:text-[32px] lg:text-[40px] leading-none tracking-[-0.02em] text-accent-coral">
-                  от 3 000 ₽ <span className="text-white/85">с человека</span>
-                </p>
-                <p className="mt-3 text-[12px] sm:text-[13px] tracking-[0.06em] text-white/55">
-                  50–450 участников · монтаж 1–3 часа · собственный продакшн
-                </p>
-              </div>
-
-              <div className="mt-8 sm:mt-10 flex flex-wrap gap-3">
+              <div className="mt-6 sm:mt-7 flex flex-wrap items-center gap-3">
                 <a
                   href="tel:+79214102121"
-                  className="inline-flex h-12 sm:h-14 items-center gap-2 rounded-full bg-accent-coral px-5 sm:px-7 text-[14px] sm:text-[15px] font-semibold text-white hover:bg-accent-coral-strong transition-colors"
+                  className="inline-flex h-11 sm:h-12 items-center gap-2 rounded-full bg-accent-coral px-5 sm:px-6 text-[14px] font-semibold text-white hover:bg-accent-coral-strong transition-colors"
                 >
                   Позвонить
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path
+                      d="M5 12h14M13 6l6 6-6 6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </a>
                 <a
                   href="tel:+79214102121"
-                  className="inline-flex h-12 sm:h-14 items-center rounded-full border border-white/25 hover:bg-white/10 transition-colors px-5 sm:px-7 text-[14px] sm:text-[15px] font-medium text-white"
+                  className="inline-flex h-11 sm:h-12 items-center rounded-full border border-white/25 hover:bg-white/10 transition-colors px-5 sm:px-6 text-[14px] font-medium text-white"
                 >
                   +7 (921) 410-21-21
                 </a>
+
+                <ul className="hidden md:flex flex-wrap items-center gap-x-7 lg:gap-x-9 ml-2 lg:ml-3 pl-5 lg:pl-7 border-l border-white/20">
+                  {LEAD_FACTS.map((f, i) => (
+                    <li key={i} className="flex flex-col leading-tight">
+                      <span className="font-heading text-[15px] lg:text-[16px] tracking-[-0.01em] text-white whitespace-nowrap">
+                        {f.title}
+                      </span>
+                      <span className="mt-0.5 text-[11px] lg:text-[12px] tracking-[0.04em] text-white/55 whitespace-nowrap">
+                        {f.subtitle}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
               </div>
+
+              <ul className="md:hidden mt-5 flex flex-wrap gap-x-6 gap-y-3 pt-4 border-t border-white/15">
+                {LEAD_FACTS.map((f, i) => (
+                  <li key={i} className="flex flex-col leading-tight">
+                    <span className="font-heading text-[15px] tracking-[-0.01em] text-white">
+                      {f.title}
+                    </span>
+                    <span className="mt-0.5 text-[11px] tracking-[0.04em] text-white/55">
+                      {f.subtitle}
+                    </span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </section>

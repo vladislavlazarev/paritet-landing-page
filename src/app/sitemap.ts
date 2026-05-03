@@ -3,50 +3,70 @@ import { PORTFOLIO } from "@/lib/portfolio";
 import { SERVICES } from "@/lib/services";
 import { BLOG } from "@/lib/blog";
 import { PARTNER_PAGES } from "@/lib/partner-pages";
-import { SITE_URL } from "@/lib/seo";
+import { localizedAbsoluteUrl } from "@/lib/seo";
+import { LOCALES, LOCALE_BCP47, type Locale } from "@/lib/i18n/config";
 
-const STATIC_PATHS: { path: string; priority: number }[] = [
-  { path: "/", priority: 1.0 },
-  { path: "/services", priority: 0.9 },
-  { path: "/portfolio", priority: 0.9 },
-  { path: "/partners", priority: 0.8 },
-  { path: "/stati", priority: 0.7 },
-  { path: "/about", priority: 0.7 },
-  { path: "/contacts", priority: 0.7 },
+type Entry = {
+  path: string;
+  priority: number;
+  changeFrequency: "monthly" | "yearly";
+};
+
+const STATIC_PATHS: Entry[] = [
+  { path: "/", priority: 1.0, changeFrequency: "monthly" },
+  { path: "/services", priority: 0.9, changeFrequency: "monthly" },
+  { path: "/portfolio", priority: 0.9, changeFrequency: "monthly" },
+  { path: "/partners", priority: 0.8, changeFrequency: "monthly" },
+  { path: "/stati", priority: 0.7, changeFrequency: "monthly" },
+  { path: "/about", priority: 0.7, changeFrequency: "monthly" },
+  { path: "/contacts", priority: 0.7, changeFrequency: "monthly" },
 ];
+
+/** hreflang alternates map for a given locale-neutral path. */
+function alternates(path: string): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const loc of LOCALES) {
+    out[LOCALE_BCP47[loc]] = localizedAbsoluteUrl(loc, path);
+  }
+  return out;
+}
+
+function entryFor(locale: Locale, e: Entry, lastModified: Date): MetadataRoute.Sitemap[number] {
+  return {
+    url: localizedAbsoluteUrl(locale, e.path),
+    lastModified,
+    changeFrequency: e.changeFrequency,
+    priority: e.priority,
+    alternates: { languages: alternates(e.path) },
+  };
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-  return [
-    ...STATIC_PATHS.map(({ path, priority }) => ({
-      url: `${SITE_URL}${path}`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority,
-    })),
+  const dynamicEntries: Entry[] = [
     ...SERVICES.map((s) => ({
-      url: `${SITE_URL}/services/${s.slug}`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
+      path: `/services/${s.slug}`,
       priority: s.kind === "category" ? 0.85 : 0.75,
+      changeFrequency: "monthly" as const,
     })),
     ...PORTFOLIO.map((p) => ({
-      url: `${SITE_URL}/portfolio/${p.slug}`,
-      lastModified: now,
-      changeFrequency: "yearly" as const,
+      path: `/portfolio/${p.slug}`,
       priority: 0.7,
+      changeFrequency: "yearly" as const,
     })),
     ...PARTNER_PAGES.map((p) => ({
-      url: `${SITE_URL}/partners/${p.slug}`,
-      lastModified: now,
-      changeFrequency: "yearly" as const,
+      path: `/partners/${p.slug}`,
       priority: 0.6,
+      changeFrequency: "yearly" as const,
     })),
     ...BLOG.map((p) => ({
-      url: `${SITE_URL}/${p.slug}`,
-      lastModified: now,
-      changeFrequency: "yearly" as const,
+      path: `/${p.slug}`,
       priority: 0.65,
+      changeFrequency: "yearly" as const,
     })),
   ];
+  const allEntries = [...STATIC_PATHS, ...dynamicEntries];
+  return LOCALES.flatMap((loc) =>
+    allEntries.map((e) => entryFor(loc, e, now)),
+  );
 }

@@ -1,22 +1,32 @@
 import Link from "next/link";
 import { Logo } from "./logo";
+import type { Dictionary } from "@/lib/i18n/types";
+import { DEFAULT_LOCALE, type Locale } from "@/lib/i18n/config";
+import ruDict from "@/lib/i18n/dictionaries/ru";
+import { p } from "@/lib/i18n/paths";
 
-export function Footer() {
+type FooterProps = {
+  dict?: Dictionary;
+  locale?: Locale;
+};
+
+export function Footer({
+  dict = ruDict,
+  locale = DEFAULT_LOCALE,
+}: FooterProps = {}) {
   return (
     <footer className="bg-brand-strong text-white/70">
       <div className="container-page py-12 sm:py-16 lg:py-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 sm:gap-10">
           <div className="sm:col-span-2 lg:col-span-4">
-            <Logo />
+            <Logo homeHref={p(locale, "/")} />
             <p className="mt-5 sm:mt-6 text-[14px] leading-relaxed max-w-xs">
-              Paritet Events — организация корпоративных мероприятий,
-              тимбилдингов, концертов и частных праздников в Санкт-Петербурге
-              с 2000 года.
+              {dict.footer.intro}
             </p>
             <div className="mt-6 flex gap-3">
               <a
                 href="#"
-                aria-label="YouTube"
+                aria-label={dict.footer.socialYT}
                 className="grid h-11 w-11 place-items-center rounded-full border border-white/15 text-white/80 hover:bg-white/10 hover:text-white transition-colors"
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
@@ -25,7 +35,7 @@ export function Footer() {
               </a>
               <a
                 href="#"
-                aria-label="ВКонтакте"
+                aria-label={dict.footer.socialVK}
                 className="grid h-11 w-11 place-items-center rounded-full border border-white/15 text-white/80 hover:bg-white/10 hover:text-white transition-colors"
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
@@ -36,11 +46,11 @@ export function Footer() {
           </div>
           <div className="lg:col-span-3">
             <h4 className="text-white text-[12px] font-semibold tracking-[0.22em] uppercase mb-4 sm:mb-5">
-              Контакты
+              {dict.footer.h_contacts}
             </h4>
             <ul className="space-y-3 text-[14px]">
-              <li>г. Санкт-Петербург</li>
-              <li>Невский проспект, 109, офис 27</li>
+              <li>{dict.footer.addressCity}</li>
+              <li>{dict.footer.addressStreet}</li>
               <li>
                 <a href="tel:+79214102121" className="hover:text-white">
                   +7 (921) 410-21-21
@@ -63,79 +73,79 @@ export function Footer() {
           </div>
           <div className="lg:col-span-3">
             <h4 className="text-white text-[12px] font-semibold tracking-[0.22em] uppercase mb-4 sm:mb-5">
-              Услуги
+              {dict.footer.h_services}
             </h4>
             <ul className="space-y-3 text-[14px]">
               <li>
                 <Link
-                  href="/services/korporativnye-meroprijatija"
+                  href={p(locale, "/services/korporativnye-meroprijatija")}
                   className="hover:text-white"
                 >
-                  Корпоративные мероприятия в&nbsp;СПб
+                  {dict.footer.sCorp}
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/services/timbilding"
+                  href={p(locale, "/services/timbilding")}
                   className="hover:text-white"
                 >
-                  Тимбилдинги для&nbsp;сотрудников
+                  {dict.footer.sTeam}
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/services/kontserty"
+                  href={p(locale, "/services/kontserty")}
                   className="hover:text-white"
                 >
-                  Концерты и&nbsp;шоу-программы
+                  {dict.footer.sConcerts}
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/services/korporativnyj-novyj-god"
+                  href={p(locale, "/services/korporativnyj-novyj-god")}
                   className="hover:text-white"
                 >
-                  Новогодний корпоратив&nbsp;2026
+                  {dict.footer.sNYE}
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/services/svadby"
+                  href={p(locale, "/services/svadby")}
                   className="hover:text-white"
                 >
-                  Организация свадеб
+                  {dict.footer.sWeddings}
                 </Link>
               </li>
             </ul>
           </div>
           <div className="lg:col-span-2">
             <h4 className="text-white text-[12px] font-semibold tracking-[0.22em] uppercase mb-4 sm:mb-5">
-              Компания
+              {dict.footer.h_company}
             </h4>
             <ul className="space-y-3 text-[14px]">
               <li>
-                <Link href="/portfolio" className="hover:text-white">
-                  Реализованные проекты
+                <Link href={p(locale, "/portfolio")} className="hover:text-white">
+                  {dict.footer.cProjects}
                 </Link>
               </li>
               <li>
-                <Link href="/partners" className="hover:text-white">
-                  Партнёры и&nbsp;клиенты
+                <Link href={p(locale, "/partners")} className="hover:text-white">
+                  {dict.footer.cPartners}
                 </Link>
               </li>
               <li>
-                <Link href="/stati" className="hover:text-white">
-                  Статьи об&nbsp;event-индустрии
+                <Link href={p(locale, "/stati")} className="hover:text-white">
+                  {dict.footer.cArticles}
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-white">
-                  О&nbsp;команде
+                <Link href={p(locale, "/about")} className="hover:text-white">
+                  {dict.footer.cAbout}
                 </Link>
               </li>
               <li>
-                <Link href="/contacts" className="hover:text-white">
-                  Контакты
+                <Link href={p(locale, "/contacts")} className="hover:text-white">
+                  {dict.footer.cContacts}
                 </Link>
               </li>
             </ul>
@@ -143,7 +153,7 @@ export function Footer() {
         </div>
 
         <div className="mt-10 sm:mt-12 pt-5 sm:pt-6 border-t border-white/10 text-[12px] text-white/45">
-          <span>© 2000–2026 Paritet Events. Все права защищены.</span>
+          <span>{dict.footer.rights}</span>
         </div>
       </div>
     </footer>

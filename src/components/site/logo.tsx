@@ -2,12 +2,14 @@ import Image from "next/image";
 
 type LogoProps = {
   variant?: "light" | "dark";
+  /** Locale-aware home href; defaults to "/". */
+  homeHref?: string;
 };
 
-export function Logo({ variant = "light" }: LogoProps) {
+export function Logo({ variant = "light", homeHref = "/" }: LogoProps) {
   if (variant === "dark") {
     return (
-      <a href="/" className="flex items-center gap-3">
+      <a href={homeHref} className="flex items-center gap-3">
         <span className="relative block h-12 sm:h-16 lg:h-[90px] w-12 sm:w-16 lg:w-[72px] overflow-hidden">
           <Image
             src="/logo-white.png"
@@ -32,7 +34,7 @@ export function Logo({ variant = "light" }: LogoProps) {
   }
 
   return (
-    <a href="/" className="flex items-center">
+    <a href={homeHref} className="flex items-center">
       <Image
         src="/logo-white.png"
         alt="Паритет Events"

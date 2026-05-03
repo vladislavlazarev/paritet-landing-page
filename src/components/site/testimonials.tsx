@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Carousel } from "./carousel";
 import { reviews, type Review } from "@/lib/testimonials-data";
+import { useLocale } from "@/lib/i18n/locale-context";
 
 type TestimonialsProps = {
   eyebrow?: string;
@@ -12,9 +13,11 @@ type TestimonialsProps = {
 
 export function Testimonials({
   eyebrow,
-  heading = "Отзывы клиентов",
+  heading,
 }: TestimonialsProps = {}) {
+  const { dict } = useLocale();
   const [open, setOpen] = useState<Review | null>(null);
+  const headingText = heading ?? dict.testimonials.sectionTitle;
 
   useEffect(() => {
     if (!open) return;
@@ -42,7 +45,7 @@ export function Testimonials({
             </p>
           )}
           <h2 className="mt-4 font-heading text-[28px] sm:text-[40px] md:text-[52px] leading-[1.08] sm:leading-[1.04] tracking-[-0.025em] text-ink">
-            {heading}
+            {headingText}
           </h2>
         </div>
       </div>
@@ -98,7 +101,7 @@ export function Testimonials({
                   onClick={() => setOpen(r)}
                   className="inline-flex items-center gap-1.5 text-[14px] font-medium text-brand hover:text-accent-coral transition-colors shrink-0"
                 >
-                  Читать полностью
+                  {dict.testimonials.readFull}
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
@@ -115,7 +118,7 @@ export function Testimonials({
           onClick={() => setOpen(null)}
           role="dialog"
           aria-modal="true"
-          aria-label={`Отзыв: ${open.brand}`}
+          aria-label={`${dict.testimonials.sectionTitle}: ${open.brand}`}
         >
           <div
             className="relative w-full max-w-[760px] my-auto rounded-[20px] sm:rounded-[24px] bg-white p-6 sm:p-10 lg:p-12 shadow-[0_24px_80px_-20px_rgba(10,11,13,0.5)]"
@@ -124,7 +127,7 @@ export function Testimonials({
             <button
               type="button"
               onClick={() => setOpen(null)}
-              aria-label="Закрыть"
+              aria-label={dict.testimonials.closeAria}
               className="absolute top-4 right-4 sm:top-5 sm:right-5 grid h-10 w-10 place-items-center rounded-full text-ink/60 hover:text-ink hover:bg-surface-soft transition-colors"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -133,7 +136,7 @@ export function Testimonials({
             </button>
 
             <p className="text-[11px] sm:text-[12px] tracking-[0.28em] uppercase text-muted-fg">
-              Благодарственное письмо
+              {dict.testimonials.letterEyebrow}
             </p>
 
             <div className="mt-3 flex items-center gap-4">
@@ -173,18 +176,18 @@ export function Testimonials({
             {open.letter && (
               <div className="mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-hairline">
                 <p className="text-[11px] sm:text-[12px] tracking-[0.28em] uppercase text-muted-fg mb-4 sm:mb-5">
-                  Оригинал письма
+                  {dict.testimonials.letterOriginal}
                 </p>
                 <a
                   href={open.letter}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block relative rounded-[14px] sm:rounded-[16px] overflow-hidden ring-1 ring-hairline bg-surface-soft"
-                  aria-label="Открыть оригинал письма в полном размере"
+                  aria-label={dict.testimonials.letterOpenAria}
                 >
                   <Image
                     src={open.letter}
-                    alt={`Благодарственное письмо — ${open.brand}`}
+                    alt={`${dict.testimonials.letterEyebrow} — ${open.brand}`}
                     width={1200}
                     height={1600}
                     className="w-full h-auto object-contain"
