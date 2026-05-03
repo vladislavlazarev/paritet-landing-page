@@ -210,6 +210,8 @@ type ArticleJsonLdInput = {
   description?: string;
   image?: string;
   inLanguage?: string;
+  datePublished?: string;
+  dateModified?: string;
 };
 
 export function articleJsonLd(input: ArticleJsonLdInput) {
@@ -219,6 +221,8 @@ export function articleJsonLd(input: ArticleJsonLdInput) {
     headline: input.title,
     description: input.description,
     inLanguage: input.inLanguage,
+    datePublished: input.datePublished,
+    dateModified: input.dateModified || input.datePublished,
     image: input.image
       ? input.image.startsWith("http")
         ? input.image

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
-import { BLOG } from "@/lib/blog";
+import { BLOG, formatBlogDate } from "@/lib/blog";
 import { breadcrumbJsonLd, buildMeta } from "@/lib/seo";
 
 export const metadata = buildMeta({
@@ -47,36 +47,56 @@ export default function BlogIndexPage() {
         <section className="bg-white">
           <div className="container-page py-12 sm:py-16 lg:py-20">
             <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 lg:gap-8">
-              {BLOG.map((post) => (
-                <li key={post.slug}>
-                  <Link
-                    href={`/${post.slug}`}
-                    className="group block bg-white rounded-[20px] overflow-hidden ring-1 ring-hairline hover:shadow-[0_12px_40px_-20px_rgba(31,26,85,0.45)] transition-shadow"
-                  >
-                    <div className="aspect-[4/3] relative overflow-hidden bg-surface-soft">
-                      {post.image && (
-                        <Image
-                          src={post.image}
-                          alt={post.title}
-                          fill
-                          sizes="(min-width:1024px) 380px, (min-width:640px) 50vw, 100vw"
-                          className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                        />
-                      )}
-                    </div>
-                    <div className="px-6 sm:px-7 py-5 sm:py-6">
-                      <h3 className="text-[18px] sm:text-[20px] leading-snug text-ink">
-                        {post.title}
-                      </h3>
-                      {post.description && (
-                        <p className="mt-3 text-[14px] leading-relaxed text-body line-clamp-3">
-                          {post.description}
-                        </p>
-                      )}
-                    </div>
-                  </Link>
-                </li>
-              ))}
+              {[...BLOG]
+                .sort((a, b) =>
+                  (b.publishedAt || "").localeCompare(a.publishedAt || ""),
+                )
+                .map((post) => {
+                  const dateText = formatBlogDate(post.publishedAt);
+                  const meta = [
+                    dateText,
+                    post.readingMinutes
+                      ? `${post.readingMinutes} мин чтения`
+                      : null,
+                  ]
+                    .filter(Boolean)
+                    .join(" · ");
+                  return (
+                    <li key={post.slug}>
+                      <Link
+                        href={`/${post.slug}`}
+                        className="group block bg-white rounded-[20px] overflow-hidden ring-1 ring-hairline hover:shadow-[0_12px_40px_-20px_rgba(31,26,85,0.45)] transition-shadow"
+                      >
+                        <div className="aspect-[4/3] relative overflow-hidden bg-surface-soft">
+                          {post.image && (
+                            <Image
+                              src={post.image}
+                              alt={post.title}
+                              fill
+                              sizes="(min-width:1024px) 380px, (min-width:640px) 50vw, 100vw"
+                              className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                            />
+                          )}
+                        </div>
+                        <div className="px-6 sm:px-7 py-5 sm:py-6">
+                          {meta && (
+                            <p className="text-[12px] tracking-[0.04em] text-muted-fg">
+                              {meta}
+                            </p>
+                          )}
+                          <h3 className="mt-2 text-[18px] sm:text-[20px] leading-snug text-ink">
+                            {post.title}
+                          </h3>
+                          {post.description && (
+                            <p className="mt-3 text-[14px] leading-relaxed text-body line-clamp-3">
+                              {post.description}
+                            </p>
+                          )}
+                        </div>
+                      </Link>
+                    </li>
+                  );
+                })}
             </ul>
           </div>
         </section>

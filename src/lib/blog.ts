@@ -9,6 +9,14 @@ export type BlogPost = {
   body: ServiceBlock[];
   image?: string;
   images: string[];
+  /** ISO 8601 publication timestamp from source site. */
+  publishedAt?: string;
+  /** ISO 8601 last-modified timestamp. */
+  modifiedAt?: string;
+  /** Approximate words count of the body — used to derive reading time. */
+  wordCount?: number;
+  /** Reading time in minutes (rounded, min 1). */
+  readingMinutes?: number;
   seo: SeoMeta;
   sourceUrl?: string;
 };
@@ -25,6 +33,10 @@ type RawBlogEntry = {
   >;
   images?: string[];
   image?: string;
+  publishedAt?: string;
+  modifiedAt?: string;
+  wordCount?: number;
+  readingMinutes?: number;
   seo?: SeoMeta;
 };
 
@@ -57,9 +69,25 @@ function adapt(raw: RawBlogEntry): BlogPost {
     body: tidyBlocks(raw.body),
     images,
     image: raw.image || images[0],
+    publishedAt: raw.publishedAt,
+    modifiedAt: raw.modifiedAt,
+    wordCount: raw.wordCount,
+    readingMinutes: raw.readingMinutes,
     seo: raw.seo || {},
     sourceUrl: raw.sourceUrl,
   };
+}
+
+/** Format an ISO timestamp as a Russian human-friendly date: "29 июля 2019". */
+export function formatBlogDate(iso?: string): string {
+  if (!iso) return "";
+  const d = new Date(iso);
+  if (Number.isNaN(d.valueOf())) return "";
+  return new Intl.DateTimeFormat("ru-RU", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(d);
 }
 
 export const BLOG: BlogPost[] = (rawBlog as RawBlogEntry[]).map(adapt);

@@ -68,3 +68,46 @@ export const PARTNER_PAGES: PartnerPage[] = (rawPartners as RawPartnerEntry[])
 export function getPartnerPageBySlug(slug: string): PartnerPage | undefined {
   return PARTNER_PAGES.find((p) => p.slug === slug);
 }
+
+const STOPWORD = new Set([
+  "банк",
+  "банка",
+  "компании",
+  "компания",
+  "холдинг",
+  "групп",
+  "group",
+  "ltd",
+]);
+
+function escapeRe(s: string): string {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/**
+ * Возвращает значимые слова из названия партнёра (≥4 символа, не стоп-слова),
+ * по которым можно искать упоминания в title/body кейсов портфолио.
+ */
+export function partnerSearchTokens(title: string): string[] {
+  return title
+    .replace(/[«»".,]/g, "")
+    .split(/\s+/)
+    .map((t) => t.trim())
+    .filter(
+      (t) => t.length >= 4 && !STOPWORD.has(t.toLowerCase()),
+    );
+}
+
+/**
+ * Возвращает регулярку, матчащую любое из ключевых слов партнёра целиком
+ * (с word-boundary), без ложных совпадений по подстроке. Возвращает null,
+ * если ни одного значимого слова нет (ставим тогда блок не показывается).
+ */
+export function partnerMentionRegex(title: string): RegExp | null {
+  const tokens = partnerSearchTokens(title);
+  if (!tokens.length) return null;
+  return new RegExp(
+    `(?:^|[^а-яёa-z0-9])(${tokens.map(escapeRe).join("|")})(?=[^а-яёa-z0-9]|$)`,
+    "i",
+  );
+}

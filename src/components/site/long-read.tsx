@@ -20,6 +20,8 @@ type Props = {
   notice?: string;
   /** UI dictionary; defaults to RU. */
   dict?: Dictionary;
+  /** Optional meta row shown under the H1 — e.g. "29 июля 2019 · 4 мин чтения". */
+  meta?: { dateText?: string; readingMinutes?: number };
 };
 
 function BlockView({ block }: { block: ServiceBlock }) {
@@ -63,7 +65,15 @@ export function LongRead({
   body,
   contentLang = "ru",
   notice,
+  meta,
 }: Props) {
+  const metaParts: string[] = [];
+  if (meta?.dateText) metaParts.push(meta.dateText);
+  if (meta?.readingMinutes) {
+    metaParts.push(
+      `${meta.readingMinutes} мин чтения`,
+    );
+  }
   return (
     <>
       <section
@@ -85,6 +95,11 @@ export function LongRead({
           >
             {title}
           </h1>
+          {metaParts.length > 0 && (
+            <p className="mt-4 text-[13px] sm:text-[14px] tracking-[0.02em] text-white/60">
+              {metaParts.join(" · ")}
+            </p>
+          )}
           {description && (
             <p
               lang={contentLang === "ru" ? undefined : contentLang}

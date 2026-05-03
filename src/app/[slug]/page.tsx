@@ -12,7 +12,7 @@ import { Contact } from "@/components/site/contact";
 import { LongRead } from "@/components/site/long-read";
 import { LocaleProvider } from "@/lib/i18n/locale-context";
 import { HtmlLangEffect } from "@/components/site/html-lang-effect";
-import { BLOG, getBlogPostBySlug } from "@/lib/blog";
+import { BLOG, formatBlogDate, getBlogPostBySlug } from "@/lib/blog";
 import {
   articleJsonLd,
   breadcrumbJsonLd,
@@ -207,6 +207,8 @@ export default async function CatchAllPage(props: PageProps<"/[slug]">) {
     description: post.seo?.metaDescription?.trim() || post.description,
     image: post.image,
     inLanguage: "ru-RU",
+    datePublished: post.publishedAt,
+    dateModified: post.modifiedAt,
   });
   const breadcrumbs = breadcrumbJsonLd([
     { name: "Главная", url: "/" },
@@ -232,6 +234,10 @@ export default async function CatchAllPage(props: PageProps<"/[slug]">) {
           description={post.description}
           heroImage={post.image}
           body={post.body}
+          meta={{
+            dateText: formatBlogDate(post.publishedAt),
+            readingMinutes: post.readingMinutes,
+          }}
         />
       </main>
       <Footer />

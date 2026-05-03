@@ -123,8 +123,10 @@ const nextConfig: NextConfig = {
 
       // 7. Reviews custom post type — site has no reviews-by-id pages anymore;
       // route to homepage (testimonials carousel lives on the front page).
+      // Exclude /reviews/logos/* and /reviews/letters/* so the redirect doesn't
+      // swallow the testimonial images stored under /public/reviews/.
       {
-        source: "/reviews/:path*",
+        source: "/reviews/:path((?!logos|letters).*)",
         destination: "/#testimonials",
         permanent: true,
       },

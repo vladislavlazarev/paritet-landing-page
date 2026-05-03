@@ -101,19 +101,47 @@ function looksLikeSubheading(text: string) {
   return t.split(/\s+/).length >= 2;
 }
 
+/**
+ * Нормализация Cyrillic-headings, написанных полностью капсом
+ * (например «ПРОВЕДЕНИЕ» в timbilding) → «Проведение». Делаем только для
+ * чистого Cyrillic без lowercase: ≥4 символа, без латиницы и lowercase
+ * Cyrillic, чтобы не зацепить аббревиатуры вроде «СПб», «IT», «BFA».
+ */
+function normaliseCapsHeading(text: string): string {
+  const t = text.trim();
+  if (t.length < 4) return t;
+  if (/[a-zа-яё]/.test(t)) return t;
+  if (!/[А-ЯЁ]{4,}/.test(t)) return t;
+  return t.charAt(0).toUpperCase() + t.slice(1).toLowerCase();
+}
+
+/**
+ * Брендовые термины-маркеры, регистр которых должен быть единым.
+ * Старый сайт смешивал «Family day», «family day» и «Family Day» — приводим к
+ * каноническому «Family Day». Не трогаем русскую транскрипцию «фэмили дэй»
+ * — она намеренно дана авторами.
+ */
+function normaliseTerms(text: string): string {
+  return text.replace(/\bfamily\s+day\b/gi, "Family Day");
+}
+
 function tidyBlocks(raw: RawServiceEntry["body"] = []): ServiceBlock[] {
   const cleaned = (raw || [])
     .map<ServiceBlock | null>((b) => {
       if (b.kind === "heading") {
-        const text = b.text.replace(/[:：]\s*$/, "").trim();
+        const text = normaliseTerms(
+          normaliseCapsHeading(b.text.replace(/[:：]\s*$/, "").trim()),
+        );
         return text ? { kind: "heading", text } : null;
       }
       if (b.kind === "paragraph") {
-        const text = b.text.trim();
+        const text = normaliseTerms(b.text.trim());
         return text.length > 1 ? { kind: "paragraph", text } : null;
       }
       if (b.kind === "list") {
-        const items = b.items.map((s) => s.trim()).filter(Boolean);
+        const items = b.items
+          .map((s) => normaliseTerms(s.trim()))
+          .filter(Boolean);
         return items.length ? { kind: "list", items } : null;
       }
       return null;
@@ -183,8 +211,12 @@ function adapt(raw: RawServiceEntry): Service {
     body: tidyBlocks(raw.body),
     images,
     image: raw.image || images[0],
-    pageHeading: raw.pageHeading?.trim() || undefined,
-    leadIntro: raw.leadIntro?.trim() || undefined,
+    pageHeading: raw.pageHeading
+      ? normaliseTerms(raw.pageHeading.trim())
+      : undefined,
+    leadIntro: raw.leadIntro
+      ? normaliseTerms(raw.leadIntro.trim())
+      : undefined,
     leadFacts,
     seo: raw.seo || {},
     sourceUrl: raw.sourceUrl,
